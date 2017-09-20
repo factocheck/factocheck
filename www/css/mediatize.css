@@ -3521,6 +3521,11 @@ font-size: 14px;
 	text-decoration: underline;
 }
 
+.news-submitted .media {
+	font-weight: bold;
+}
+
+
 .news-submitted-front {
 
 }
@@ -4483,6 +4488,27 @@ a.comment-bubble:after {  /* triangle */
 	text-decoration: none;
 }
 
+/* post button */
+.post-btn {
+	background-color: transparent;
+	border-radius: 4px;
+	color: #555 !important;
+	padding: 5px 10px;
+	border: solid #555 1px;
+	font-size: 0.8em;
+	text-decoration: none;
+	text-align: center;
+}
+
+.post-btn:hover,
+.post-btn:hover span {
+	background: #555;
+	color: #eee !important;
+	text-decoration: none;
+	transition: all 0.4s ease;
+}
+
+
 /*
 a.header-btn {
 	background-color: #fff;
@@ -4517,6 +4543,12 @@ a.header-btn:hover {
 	color: #000;
 	transition: all 0.2s ease;
 	opacity: 0.8;
+}
+
+a.header-btn.red {
+	color: #fff;
+	background: #f51;
+	font-weight: bold;
 }
 
 a.register-btn {
@@ -4730,6 +4762,14 @@ a.btn-tw:hover {
 .news-img-zone img.img-story2 {
 	max-width: 100%;
 	max-height: 100%;
+	border: 1px solid rgba(0,0,0,0.05);
+}
+
+.news-img-zone img.img-story3 {
+	max-width: 233px;
+	max-height: 128px;
+	width: auto;
+	height: auto;
 	border: 1px solid rgba(0,0,0,0.05);
 }
 

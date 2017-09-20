@@ -285,7 +285,7 @@ if (! $short_content) {
 	do_banner_promotions();
 	if ($tab_option < 4) {
 		do_last_subs('published');
-		do_last_blogs();
+		//do_last_blogs();
 	}
 }
 echo '</div>';

@@ -30,6 +30,7 @@ $routes = array(
 	'comments_rss'	=> 'comments_rss2.php',
 	'sneakme_rss'	=> 'sneakme_rss2.php',
 	'sneak'		=> 'sneak.php',
+	'stream'        => 'stream.php',
 	'telnet'	=> 'telnet.php',
 	'popular'	=> 'topstories.php',
 	'top_visited'	=> 'topclicked.php',
