@@ -35,7 +35,7 @@ def main():
 	update_cursor = DBM.cursor('update')
 	query = """
 		DELETE FROM rss
-			WHERE date < date_sub(now(), interval %s day)
+			WHERE date_parsed < date_sub(now(), interval %s day)
 	"""
 	print "Deleting old entries"
 	update_cursor.execute(query, (dbconf.blogs['days_to_keep'],))
