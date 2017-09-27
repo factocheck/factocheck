@@ -3530,12 +3530,11 @@ font-size: 14px;
 
 .news-details {
 	font-family: 'Roboto', sans-serif;
-        font-size: 12px;
+	font-size: 12px;
 	line-height: 18px;
 	color: #808080;
 	display: block;
 	padding: 5px 0 5px 0;
-	//margin-top: 5px;
 }
 
 .news-details .main {
