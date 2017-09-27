@@ -3424,16 +3424,17 @@ font-size: 14px;
 
 /* "ellipsis effect" without ellipsis :D */
 .news-content {
-        color: #444;
+	color: #444;
 	/*width: 98%;*/
 	/*max-height: 142px;*/
 	max-height: 10em;   /* font-size * 7 lines */
 	display: block;
 	font-family: "Graphik Web","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 0.875em;
-        font-weight: normal;
-        line-height: 1.428571429em;
-        margin: 0 auto 5px auto;
+	font-size: 0.875em;
+	font-weight: normal;
+	line-height: 1.45;
+	letter-spacing: 0.333px;
+	margin: 0 auto 5px auto;
 	display: -webkit-box;
 	-webkit-line-clamp: 7;
 	-webkit-box-orient: vertical;
