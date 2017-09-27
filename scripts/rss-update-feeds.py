@@ -49,18 +49,25 @@ def main():
 	cursor = DBM.cursor()
 
 	query = """
-		SELECT link_blog, blog_url, blog_feed,
+		SELECT blog_id, blog_url, blog_feed,
 				UNIX_TIMESTAMP(blog_feed_checked),
 				UNIX_TIMESTAMP(blog_feed_read)
 			FROM sub_statuses, links, blogs
 			WHERE 
-				id = 1 AND status = "published" AND date > date_sub(now(), interval %s day)
+				(id = 1
+				AND status = "published" AND date > date_sub(now(), interval %s day)
 				AND link_id = link
 				AND blog_id = link_blog
 				AND blog_feed_checked is not null
 				AND blog_type <> 'disabled'
-				AND blog_feed is not null
-			GROUP BY blog_id
+				AND blog_feed is not null)
+		UNION
+		SELECT blog_id, blog_url, blog_feed,
+                                UNIX_TIMESTAMP(blog_feed_checked),
+                                UNIX_TIMESTAMP(blog_feed_read)
+			FROM blogs
+			WHERE blog_type = 'aggregator'
+		GROUP BY blog_id
 	"""
 	feeds_read = 0
 	print "Reading feeds..."

@@ -204,6 +204,7 @@ class BaseBlogs(object):
 				modified = time.gmtime(self.last_read)
 			else:
 				modified = time.gmtime(now - dbconf.blogs['min_hours']*3600)
+			#print " --- DEBUG: ", modified, self.feed
 			doc = feedparser.parse(self.feed, modified=modified)
 		except (urllib2.URLError, urllib2.HTTPError, UnicodeEncodeError), e:
 			print " --- ERROR: connection failed (%s) %s" % (e, self.feed)
