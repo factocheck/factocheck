@@ -1751,17 +1751,13 @@ font-size: 100%;
 }
 
 .comment-content {
-	padding: 8px 5px 0 10px;
+	padding: 8px 10px 4px 10px;
 }
 
 .comment-text {
-	padding-top: 7px;
-	padding-bottom: 7px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	//border-top: 1px solid #e1e2e3;
-	//border-bottom: 1px solid #eee;
-	//border-bottom: 1px solid #ccc;
+	font-family: "Open Sans", "sans-serif";
+	font-size: 14px;
+	margin: 12px 0;
 }
 
 .comment-text a {
@@ -1773,7 +1769,7 @@ font-size: 100%;
 	position: relative;
 	padding: 4px 5px 4px 33px;
 	margin-bottom: 10px;
-	line-height: 120%;
+	line-height: 1.42857143;
 	text-align: left;
 	overflow: hidden;
 	min-height: 61px;
@@ -1994,17 +1990,14 @@ padding-left: 0;
 }
 
 .post-content {
-	padding: 8px 5px 0 10px;
+	padding: 8px 10px 4px 10px;
 }
 
 .post-text {
-	padding-top: 7px;
-	padding-bottom: 7px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	//border-top: 1px solid #e1e2e3;
-	//border-bottom: 1px solid #eee;
-	//border-bottom: 1px solid #eda;
+	font-family: "Open Sans", "sans-serif";
+	font-size: 14px;
+	margin: 12px 0;
+	line-height: 1.42857143;
 }
 
 .post-text a {
@@ -2013,9 +2006,10 @@ padding-left: 0;
 
 .post-header .username,
 .post-header a {
+	font-family: "Open Sans", "sans-serif";
+	font-size: 15px;
 	display: inline-block;
 	color: #005be2;
-	font-size: 15px;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -4811,9 +4805,10 @@ a.btn-tw:hover {
 
 .comment-header .username,
 .comment-header a {
+	font-family: "Open Sans", "sans-serif";
+	font-size: 15px;
 	display: inline-block;
 	color: #005be2;
-	font-size: 15px;
 	font-weight: bold;
 	text-decoration: none;
 }
