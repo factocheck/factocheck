@@ -3429,14 +3429,16 @@ font-size: 14px;
 	/*max-height: 142px;*/
 	max-height: 10em;   /* font-size * 7 lines */
 	display: block;
-	font-family: "Graphik Web","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 0.875em;
+	font-family: "Graphik Web", sans-serif;
+	//font-size: 0.875em;
+	//font-family: "Open Sans", sans-serif;
+	font-size: 14px;
 	font-weight: normal;
-	line-height: 1.45;
-	letter-spacing: 0.333px;
+	line-height: 20px;
+	//letter-spacing: 0.333px;
 	margin: 0 auto 5px auto;
 	display: -webkit-box;
-	-webkit-line-clamp: 7;
+	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -4776,12 +4778,14 @@ a.btn-tw:hover {
 }
 
 .news-content2 {
-        color: #444;
-        display: block;
-        font-family: "Graphik Web","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 0.875em;
-        font-weight: normal;
-        line-height: 1.428571429em;
+	color: #444;
+	display: block;
+	font-family: "Graphik Web", sans-serif;
+	//font-size: 0.875em;
+	//font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 20px;
 }
 
 .ads-interlinks {
