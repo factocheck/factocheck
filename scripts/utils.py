@@ -246,7 +246,10 @@ class BaseBlogs(object):
 					pass
 				else:
 					try:
-						link_clean = clean_url(e.link)
+						if hasattr(e, 'meneame_url'):
+							link_clean = clean_url(e.meneame_url)
+						else:
+							link_clean = clean_url(e.link)
 						image = ""
 						if hasattr(e, 'content') and e.content:
 							tree = BeautifulSoup(e.content[0]['value'])
