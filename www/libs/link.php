@@ -544,7 +544,7 @@ class Link extends LCPBase {
 		if(!$blog->read('key')
 			|| ($blog->type != 'noiframe' && $this->noiframe)) {
 
-			if ($blog->type != 'noiframe' && $this->noiframe) {
+			if ($blog->type != 'noiframe' && $blog->type != 'aggregator' && $this->noiframe) {
 				$blog->type = 'noiframe';
 				syslog(LOG_INFO, "changed to noiframe ($blog->id, $blog->url)");
 			}
