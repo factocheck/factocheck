@@ -46,7 +46,7 @@ def main():
 				(id = 1 AND status = "published" AND date > date_sub(now(), interval %s day)
 				 AND link_id = link
 				 AND blog_id = link_blog
-				 AND blog_type <> 'disabled'
+				 AND blog_type not in ('disabled', 'aggregator')
 				 AND (blog_feed_checked is null OR blog_feed_checked < date_sub(now(), interval %s day)))
 		UNION
 		SELECT blog_id, blog_url, blog_feed,
