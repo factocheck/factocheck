@@ -2349,7 +2349,6 @@ text-align: right;
 }
 
 .voters-list {
-	padding: 4px;
 	min-height: 150px;
 	border: 1px solid;
 	color: #777;
@@ -2365,7 +2364,7 @@ text-align: right;
 	height: 20%;
 	font-size: 85%;
 	white-space: nowrap;
-	padding: 5px 0 5px 0;
+	margin: 5px 2px;
 }
 
 .friends-item {
