@@ -1303,6 +1303,8 @@ class Link extends LCPBase {
 			$this->annotation .= _('Bonus por noticia reciente'). "<br/>";
 		}
 */
+		$this->coef = 1;
+
 		/*
 		 * DISABLED: global affinity votes behaves better
 		 *
