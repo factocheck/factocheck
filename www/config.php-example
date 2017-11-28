@@ -413,7 +413,8 @@ $globals['promote_pub_perc'] = 0.15;
 $globals['promote_hours'] = 24;
 $globals['promote_min_karma'] = 80;
 $globals['promote_min_votes'] = 8;
-
+$globals['min_votes'] = 8;
+$globals['time_queue_check'] = 24;
 
 // The maximun amount of annonymous votes vs user votes in 1/2 hour
 // 3 means 3 times annonymous votes as user votes in that period

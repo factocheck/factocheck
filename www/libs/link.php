@@ -1268,7 +1268,7 @@ class Link extends LCPBase {
 
 		// Get met subs coefficientes that will be used below
 		$meta_coef = $this->subs_coef_get();
-
+/*
 		// BONUS
 		// Give more karma to news voted very fast during the first two hours (ish)
 		if (abs($karma_neg_user)/$karma_pos_user < 0.05
@@ -1302,7 +1302,7 @@ class Link extends LCPBase {
 		} elseif ($this->coef > 1.01) {
 			$this->annotation .= _('Bonus por noticia reciente'). "<br/>";
 		}
-
+*/
 		/*
 		 * DISABLED: global affinity votes behaves better
 		 *
@@ -1325,7 +1325,7 @@ class Link extends LCPBase {
 				$this->annotation .= _('Coeficiente sub').' ('.$this->sub_name.') : '.round($meta_coef[$this->sub_id], 2)."<br/>";
 			}
 		}
-
+/*
 		// Give a small bonus (= $w) to links according to their clicks
 		if (! empty($this->url) && $this->karma > 0 && $globals['click_counter'] && $this->id >= $globals['click_counter']
 			&& $globals['karma_clicks_bonus'] > 0
@@ -1340,6 +1340,7 @@ class Link extends LCPBase {
 			$this->annotation .= _('Bonus clics').": $bonus<br/>";
 			$this->karma += $bonus;
 		}
+*/
 		$this->karma = round($this->karma);
 	}
 
