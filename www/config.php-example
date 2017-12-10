@@ -167,6 +167,7 @@ $globals['media_big_height'] = 262; //228
 $globals['media_big_wide'] = 480;   //420
 
 $globals['default_max_chars'] = 550;
+$globals['urlmaxchars'] = 512;
 
 // Give 4 minutes to edit a comment
 $globals['comment_edit_time'] = 240;
