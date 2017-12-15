@@ -780,8 +780,11 @@ a.logo-letters:visited {
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 35px;
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 	text-align: center;
+	margin-bottom: 25px;
+	border-radius: 4px;
+	background: #fafafa;
 }
 
 .banner-miner a:link,
