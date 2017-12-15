@@ -46,6 +46,7 @@ $routes = array(
 	'opensearch'	=> 'opensearch_plugin.php',
 	'backend'	=> 'backend/dispatcher.php',
 	'postits'	=> 'sneakme/dispatcher.php',
+	'miner'		=> 'miner.php',
 );
 
 $globals['path'] = $path = preg_split('/\/+/', $_SERVER['PATH_INFO'], 10, PREG_SPLIT_NO_EMPTY);

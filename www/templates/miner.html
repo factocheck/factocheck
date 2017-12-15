@@ -1,0 +1,29 @@
+<div class="miner">
+	<div class="text">
+	Si quieres colaborar con Mediatize y garantizar la continuidad de esta web, puedes ayudarnos con tu ordenador simplemente haciendo click en el botón "Play" donde pone "START MINING". Eso es todo.
+	</br></br>
+	Mantén abierta esta pestaña en tu navegador y mientras esté activa estarás usando la potencia de la CPU de tu ordenador para "minar monero"
+	(más información: <a href="https://es.wikipedia.org/wiki/Criptomoneda" target="_blank">criptomoneda</a> y
+	<a href="https://www.taringa.net/posts/info/19938440/Monero-XMR-que-es-y-como-funciona-megapost.html" target="_blank">monero</a>). A partir de la próxima vez que entres en esta página, el sistema empezará automáticamente.
+	</br></br>
+	Para dejar de "minar", solo has de hacer click al botón de "pausa" o cerrar la pestaña. Ten en cuenta que mientras se esté "minando", tu ordenador podría ir un poco lento debido a que se estará usando intensamente
+	su CPU. Si esto ocurre y te resulta molesto, puedes bajar un poco los valores de los parámetros "SPEED" y "THREADS" para que consuma menos CPU y así se alivie la carga de la CPU de tu ordenador. Así podrás seguir
+	colaborando con Mediatize sin que te ocasione problemas. Hay que estar conectado a internet para poder "minar", pero el consumo de datos es muy pequeño.
+	</br></br>
+	También estamos abiertos a <b>colaboraciones</b> en formato <a href="http://bitcoin.org" target="_NEW">BitCoin</a>:
+	<b><a href="bitcoin:{{ globals.miner_bitcoin }}">{{ globals.miner_bitcoin }}</a></b>
+	</div>
+
+	<script src="https://authedmine.com/lib/simple-ui.min.js" async></script>
+	<div class="coinhive-miner"
+		data-key="{{ globals.miner_monero }}"
+		data-whitelabel="true"
+		data-autostart="true"
+		data-background="#000"
+		data-text="#0c0"
+		data-action="#0f0"
+		data-graph="#555"
+	>
+		<em>Cargando...</em>
+	</div>
+</div>
