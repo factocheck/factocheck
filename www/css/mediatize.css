@@ -794,10 +794,11 @@ a.logo-letters:visited {
 
 .banner-miner > .frame > .text {
 	font-size: 18px;
+	margin-bottom: 25px;
 }
 
 .banner-miner > .frame > .button {
-	margin-top: 35px;
+	margin-top: 25px;
 }
 
 .miner > .text {
