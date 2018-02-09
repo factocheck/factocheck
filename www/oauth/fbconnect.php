@@ -56,7 +56,7 @@ class FBConnect extends OAuthBase {
 		$loginUrl = $this->helper->getLoginUrl($globals['scheme'] . '//' . get_server_name() . $_SERVER['REQUEST_URI']);
 
 		echo "<html><head>\n";
-		echo '<script type="text/javascript">'."\n";
+		echo "<script>\n";
 		echo 'self.location = "'.$loginUrl.'";'."\n";
 		echo '</script>'."\n";
 		echo '</head><body></body></html>'."\n";

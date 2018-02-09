@@ -1396,7 +1396,7 @@ function close_connection(){
 }
 
 function add_javascript($code) {
-	echo '<script type="text/javascript">';
+	echo '<script>';
 	echo 'addPostCode(\''.$code.'\');';
 	echo '</script>';
 }
