@@ -166,7 +166,7 @@ do_vertical_tags('queued');
 echo '</div>';
 /*** END SIDEBAR ***/
 
-echo '</div></div>';
+echo '</div>';
 
 do_footer();
 
