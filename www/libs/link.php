@@ -37,6 +37,7 @@ class Link extends LCPBase {
 	var $uri = '';
 	var $thumb_url = false;
 	var $content = '';
+	var $content_html = '';
 	var $content_type = '';
 	var $ip = '';
 	var $html = false;
@@ -729,7 +730,7 @@ class Link extends LCPBase {
 		if (!empty($this->max_len) &&  $this->max_len > 0) {
 			$this->truncate($this->max_len);
 		}
-		$this->content = $this->to_html($this->content);
+		$this->content_html = $this->to_html($this->content);
 		$this->show_tags = $show_tags;
 		$this->relative_permalink = $this->get_relative_permalink();
 		$this->permalink = $this->get_permalink(false, $this->relative_permalink); // To avoid double verification
