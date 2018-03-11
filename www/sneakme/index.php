@@ -291,7 +291,7 @@ if (! $short_content) {
 echo '</div>';
 /*** END SIDEBAR ***/
 
-echo '</div></div>';
+echo '</div>';
 
 do_footer();
 
