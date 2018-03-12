@@ -714,6 +714,14 @@ class Link extends LCPBase {
 			$type = 'full';
 			$content_full = false;
 			$pagetoserve = "link_summary_card.html";
+		} elseif($type == 'queue') {
+			$type = 'full';
+			$content_full = false;
+			if($globals['mobile']) {
+				$pagetoserve = "link_summary_card.html";
+			} else {
+				$pagetoserve = "link_summary.html";
+			}
 		} else {
 			$content_full = true;
 			if($globals['mobile']) {
