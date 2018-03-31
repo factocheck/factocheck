@@ -37,6 +37,26 @@ def main():
 	results = set()
 	cursor = DBM.cursor()
 
+	#query = """
+	#	SELECT blog_id, blog_url, blog_feed,
+	#			UNIX_TIMESTAMP(blog_feed_checked),
+	#			UNIX_TIMESTAMP(blog_feed_read)
+	#		FROM sub_statuses, links, blogs
+	#		WHERE 
+	#			(id = 1 AND status = "published" AND date > date_sub(now(), interval %s day)
+	#			 AND link_id = link
+	#			 AND blog_id = link_blog
+	#			 AND blog_type not in ('disabled', 'aggregator')
+	#			 AND (blog_feed_checked is null OR blog_feed_checked < date_sub(now(), interval %s day)))
+	#	UNION
+	#	SELECT blog_id, blog_url, blog_feed,
+        #                       UNIX_TIMESTAMP(blog_feed_checked),
+        #                        UNIX_TIMESTAMP(blog_feed_read)
+	#		FROM blogs
+	#		WHERE blog_type = 'aggregator'
+	#	GROUP BY blog_id
+	#"""
+
 	query = """
 		SELECT blog_id, blog_url, blog_feed,
 				UNIX_TIMESTAMP(blog_feed_checked),
@@ -48,14 +68,9 @@ def main():
 				 AND blog_id = link_blog
 				 AND blog_type not in ('disabled', 'aggregator')
 				 AND (blog_feed_checked is null OR blog_feed_checked < date_sub(now(), interval %s day)))
-		UNION
-		SELECT blog_id, blog_url, blog_feed,
-                                UNIX_TIMESTAMP(blog_feed_checked),
-                                UNIX_TIMESTAMP(blog_feed_read)
-			FROM blogs
-			WHERE blog_type = 'aggregator'
 		GROUP BY blog_id
 	"""
+
 	cursor.execute(query, (dbconf.blogs['days_blogs'], dbconf.blogs['days_blogs_checked']))
 	for row in cursor:
 		blog = BaseBlogs()
