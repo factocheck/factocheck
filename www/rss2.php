@@ -307,7 +307,7 @@ function do_header($title) {
 	echo '	xmlns:dc="https://purl.org/dc/elements/1.1/"'."\n";
 	echo '	xmlns:georss="https://www.georss.org/georss"'."\n";
 	echo '	xmlns:media="https://search.yahoo.com/mrss/"'."\n";
-	echo '	xmlns:mediatize="https://www.mediatize.net/faq-es.php"'."\n";
+	echo '	xmlns:mediatize="https://www.mediatize.info/faq-es.php"'."\n";
 	echo ' >'. "\n";
 	echo '<channel>'."\n";
 	echo'	<title>'.$title.'</title>'."\n";
