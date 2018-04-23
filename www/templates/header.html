@@ -112,9 +112,9 @@
 
 <div id="header-top">
 
- {# HEADER: TOOLS, etc #}
- <div class="header-full">
-  {% if globals.mobile %}
+{# HEADER: TOOLS, etc #}
+<div class="header-full">
+{% if globals.mobile %}
 	<div class="mobile-bar">
 		<div class="mobile-bar-in">
 			<div class="mbi-item"><a href="/"><img class="logo" title="{% trans _('ediciones mediatize') %}" alt="{% trans _('ediciones mediatize') %}" src="{{ globals.base_static }}img/mdtz/logo-white.svg"></a></div>
@@ -161,42 +161,38 @@
 	</div> {# mobile-bar #}
 
 {% else %}  {# ! globals.mobile, down here #}
- <div class="header-top-in">
+  <div class="header-top-in">
 
-  {# Header Left: logo, nav, search #}
-  <div class="header-container-left">
-	<div class="header-container-in">
-		<div class="logo-margins">
-			{% if ! globals.mobile %}
+	{# Header Left: logo, nav, search #}
+	<div class="header-container-left">
+		<div class="header-container-in">
+			<div class="logo-margins">
 				<img class="logo-header" title="{% trans _('ediciones mediatize') %}" alt="{% trans _('ediciones mediatize') %}" src="{{ globals.base_static }}img/mdtz/logo-white.svg">
-			{% else %}
-				<i class="fa fa-bars"></i>
-			{% endif %}
+			</div>
 		</div>
-	</div>
-	<div class="header-container-in">
-		<div class="logo-margins">
-			<a class="logo-letters" href="{{ globals.base_url_general }}" title="{% trans _('Portada') %} {{ globals.site_name }}">mediatize</a>
+		<div class="header-container-in">
+			<div class="logo-margins">
+				<a class="logo-letters" href="{{ globals.base_url_general }}" title="{% trans _('Portada') %} {{ globals.site_name }}">mediatize</a>
+			</div>
 		</div>
-	</div>
 
-	<div class="header-buttons">
-		<a href="{{ base_url }}submit"  title="enviar nueva historia" class="header-btn">+ enviar</a>
-		<a href="{{ base_url }}queue"   title="votar noticias pendientes" class="header-btn">nuevas</a>
-		<a href="{{ base_url }}stream"  title="stream de noticias" class="header-btn red">stream</a>
-		<a href="{{ base_url }}sneak"   title="chismosa" class="header-btn">chismosa</a>
-		<a href="{{ base_url }}postits" title="postits" class="header-btn">postits</a>
-	</div>
+		<div class="header-buttons">
+			<a href="{{ base_url }}submit"  title="enviar nueva historia" class="header-btn">+ enviar</a>
+			<a href="{{ base_url }}queue"   title="votar noticias pendientes" class="header-btn">nuevas</a>
+			<a href="{{ base_url }}stream"  title="stream de noticias" class="header-btn red">stream</a>
+			<a href="{{ base_url }}sneak"   title="chismosa" class="header-btn">chismosa</a>
+			<a href="{{ base_url }}postits" title="postits" class="header-btn">postits</a>
+		</div>
 
-	<div class="header-buttons header-buttons-wide">
-		{% include "search_box.html" %}
-	</div>
-  </div>  {# header-container-left #}
+		<div class="header-buttons header-buttons-wide">
+			{% include "search_box.html" %}
+		</div>
+	</div>  {# header-container-left #}
 
-  {# Header Right: userinfo #}
-  {% include "header_userinfo.html" %}
+	{# Header Right: userinfo #}
+	{% include "header_userinfo.html" %}
 
- </div>       {# header-top-in #}
+  </div>       {# header-top-in #}
 
 {% endif %}  {# mobile #}
 
