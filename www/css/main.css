@@ -976,6 +976,18 @@ font-weight: normal;
 text-align: center;
 }
 
+.sidebox h3 {
+	padding: 8px 0 0 2px;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.45;
+	color: #03f;
+}
+
+.sidebox h3 a {
+	text-decoration: none;
+}
+
 .sidebox h4 a,
 .sidebox h4 a:visited,
 .sidebox h4 span {

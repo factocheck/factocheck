@@ -913,3 +913,38 @@ function print_follow_sub($id) {
 	}
 }
 
+function do_sub_sidebox($sub, $title, $count = 10) {
+	global $db, $globals, $dblang;
+
+	if ($globals['mobile'] || $globals['submnm']) return;
+
+	$key = "subs_sidebox_$sub-$count_".$globals['site_shortname'].$globals['v'];
+	if(memcache_mprint($key)) return;
+
+	$output = ' ';
+
+	$ids = $db->get_col("select link from sub_statuses, subs, links where sub_statuses.id = $sub and status in ('published', 'queued') and sub_statuses.id = origen and subs.id = sub_statuses.id and owner > 0 and link_id = link order by link_date asc limit $count");
+	if ($ids) {
+		$links = array();
+		foreach($ids as $id) {
+			$link = Link::from_db($id);
+			if (! $link) continue;
+			$link->print_subname = false;
+			$link->url = $link->get_permalink();
+			$link->thumb = $link->has_thumb();
+			$link->total_votes = $link->votes+$link->anonymous;
+			if ($link->thumb) {
+				$link->thumb_x = round($link->thumb_x / 2);
+				$link->thumb_y = round($link->thumb_y / 2);
+			}
+			$links[] = $link;
+		}
+		$subclass = '';
+		$url = $globals['base_url_general'].'tema/'.SitesMgr::get_name($sub);
+		$vars = compact('links', 'title', 'subclass', 'url');
+		$output = Haanga::Load('sub_sidebox.html', $vars, true);
+		echo $output;
+	}
+	memcache_madd($key, $output, 300);
+}
+
