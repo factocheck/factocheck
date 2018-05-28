@@ -13,6 +13,11 @@
 	data-theme="{{ self.sub_name }}"
 >
 <div class="news-summary2">
+
+	{% if posttype != "story" %}
+        <a href="{{ self.relative_permalink }}" class="card-link" title="más información y comentarios"></a>
+        {% endif %}
+
 	<div class="news-body2">
 
 	{# ################################  IMG  ######################################### #}
@@ -33,20 +38,48 @@
 
 	{# ##############################  VOTE BOX  ###################################### #}
 
-	<div class="sbox-margin">
+	<div class="vote-space">
 		{% if self.show_shakebox %}
-		<div class="sbox">
-			<a class="btn num-button {{ self.box_class }}" title="{{ self.total_votes }} {% trans _('votos') %}" id="a-votes-{{ self.id}}" href="{{ self.relative_permalink }}/voters">{{ self.total_votes }}</a>
-
+		<div class="votebox">
 			{% if not globals.bot %}
-			<div class="cop" id="a-va-{{ self.id }}">
+			<div class="item" id="a-vo-{{ self.id }}">
 				{% if not self.votes_enabled %}
-					<a class="btn vote-button disabled">{% trans _('cerrado') %}</a>
+					<a class="btn vote-button false grayed disabled" title="{% trans _('cerrado') %}"><i class="fa fa-window-close"></i></a>
 				{% else %}
 					{% if not self.voted %}
-						<a href="#" class="btn vote-button" onclick="vote_history({{ current_user.user_id}}, {{self.id}});return false;" id="a-shake-{{ self.id }}">{% trans _('votar') %}</a>
+						<a href="#" class="btn vote-button false" onclick="vote_history({{ current_user.user_id}}, {{self.id}}, -1);return false;" id="a-shake-false-{{ self.id }}">
+							<i class="fa fa-times-circle-o"></i>
+						</a>
 					{% else %}
-						<a class="btn vote-button disabled" id="a-shake-{{ self.id }}">{% trans _('¡genial!') %}</a>
+						{% if self.voted < 0 %}
+							<a class="btn vote-button false disabled" id="a-shake-false-{{ self.id }}"><i class="fa fa-times-circle"></i></a>
+						{% else %}
+							<a class="btn vote-button false grayed disabled" id="a-shake-false-{{ self.id }}"></a>
+						{% endif %}
+					{% endif %}
+				{% endif %}
+			</div>
+			{% endif %}
+
+			<div class="item">
+			<a class="btn num-counter {{ self.box_class }}" title="{{ self.total_votes }} {% trans _('votos') %}" id="a-votes-{{ self.id }}" href="{{ self.relative_permalink }}/voters">{{ self.negatives }}-{{ self.votes }}</a>
+			</div>
+
+			{% if not globals.bot %}
+			<div class="item" id="a-va-{{ self.id }}">
+				{% if not self.votes_enabled %}
+					<a class="btn vote-button true grayed disabled" title="{% trans _('cerrado') %}"><i class="fa fa-window-close"></i></a>
+				{% else %}
+					{% if not self.voted %}
+						<a href="#" class="btn vote-button true" onclick="vote_history({{ current_user.user_id}}, {{self.id}}, 1);return false;" id="a-shake-true-{{ self.id }}">
+							<i class="fa fa-check-circle-o"></i>
+						</a>
+					{% else %}
+						{% if self.voted > 0 %}
+							<a class="btn vote-button true disabled" id="a-shake-true-{{ self.id }}"><i class="fa fa-check-circle"></i></a>
+						{% else %}
+							<a class="btn vote-button true grayed disabled" id="a-shake-true-{{ self.id }}"></a>
+						{% endif %}
 					{% endif %}
 				{% endif %}
 			</div>
@@ -61,7 +94,7 @@
 	{# ############################# NEWS META INFO right ########################### #}
 	<div class="news-info">
 
-	{# ##############################  WARNING  ##################################### #}
+	{# ##############################  WARNING  #####################################
 
 	{% if self.status == 'abuse' OR self.has_warning %}
 		{% if self.status == 'abuse' %}
@@ -90,8 +123,9 @@
 			{% endif %}
 		{% endif %}
 	{% endif %}
+	#}
 
-	{# #############################  URL TITLE  #################################### #}
+	{# #############################  URL TITLE  ####################################
 
 	<div class="title-header">
 		<a href="{{ globals.base_url_general }}tema/{{ self.sub_name }}{% if self.status != 'published' %}/queue{% endif %}"
@@ -104,12 +138,13 @@
 			{% endif %}
 			>{{ self.sub_name }}</a>
 	</div>
+	#}
 
-	{% if self.url %}
+	{% if self.url AND posttype == "story" %}
 		{% exec htmlspecialchars self.url as url %}
 		{% if globals.link %}<h1>{% else %}<h2>{% endif %}
 			<a href="{{ url }}" class="l:{{ self.id }}" target="_blank"
-			{% if self.status != 'published' %} rel="nofollow"{% endif %}>{{ self.title }}
+			{% if self.status != 'published' %} rel="nofollow"{% endif %}>{{ self.title }}&nbsp;
 			{% if self.content_type == 'image' %}
 				<span class="fa fa-camera" title="{% trans _('imagen') %}"></span>
 			{% else %} {% if self.content_type == 'video' %}
@@ -118,8 +153,9 @@
 			</a>
 		{% if globals.link %}</h1>{% else %}</h2>{% endif %}
 	{% else %}
-		<h1><a href="{{ self.permalink }}" class="l:{{ self.id }}">{{ self.title }}</a></h1>
+		<h2><a href="{{ self.permalink }}">{{ self.title }}</a></h2>
 	{% endif %}
+
 
 	{# #################################### NEWS DETAILS (FOOT) ###################################### #}
 
@@ -134,8 +170,8 @@
 
 		<div class="nd-item">
 			<span>votos: </span>
-			<span title="{% trans _('usuarios') %}"  id="a-usu-{{ self.id }}">{{ self.votes }}</span>&nbsp;<span>·</span>
-			<span title="{% trans _('anónimos') %}"  id="a-ano-{{ self.id }}">{{ self.anonymous }}</span>
+			<span id="a-votes-false-{{ self.id }}" title="{% trans _('voto falso') %}" id="a-usu-{{ self.id }}">{{ self.negatives }}</span>&nbsp;<span>·</span>
+			<span id="a-votes-true-{{ self.id }}" title="{% trans _('voto verdadero') %}" id="a-ano-{{ self.id }}">{{ self.votes }}</span>
 		</div>
 
 		<span>|</span>
@@ -160,7 +196,6 @@
 
 	</div>
 	{% endif %}
-
 
 	{# ###############################  CONTENT ############################### #}
 	{% if type != 'short' %}
@@ -212,29 +247,15 @@
 
 	{# #########################  NEWS INFO (FOOT) ################################## #}
 
-    <div class="news-info-footer">
+    <div class="news-info-footer {% if posttype != "story" %}relative-position{% endif %}">
 
 	{# ############  SHARE OPTIONS & COMMENTS  ################# #}
 
+	{% if posttype == "story" %}
 	<div class="shareoptions ns-right-line">
 		{% set link = self.permalink %}
 		{% set title = self.title %}
-{#
-		<div class="share-icons" data-url="{{ link }}" data-title="{{ title }}">
-			<a class="comment-bubble" href="{{ self.relative_permalink }}" title="{% trans _('comentarios de') %}: «{{ self.title }}»">{{ self.comments }}</a>
-			{% if ! self.is_discarded %}
-				<button class="share-menu"><i class="fa fa-share-alt"></i></button>
-				{% include "share.html" %}
-			{% endif %}
-			{% if current_user.user_id > 0 %}
-				<span title="{% trans _('favorito') %}" id="favl-{{ self.id }}" onclick="add_remove_fav('favl-{{ self.id }}', 'link', {{ self.id }})" {% if self.favorite %}
-				 class="fa fa-star" {% else %} class="fa fa-star-o" {% endif %} ></span>
-			{% endif %}
-			{% if self.can_report %}
-				<span onclick="report({{self.id}},'link')" title="{% trans _('reportar historia') %}" class="fa fa-bullhorn"></span>
-			{% endif %}
-		</div>
-#}
+
 		<div class="icon-bar story-icons" data-url="{{ link }}" data-title="{{ title }}">
 		<ul class="story-icons-list">
 			<li><a href="{{ self.relative_permalink }}" title="{% trans _('comentarios de') %}: «{{ self.title }}»"><i class="fa fa-comment story-color"><span class="icon-label">{{ self.comments }}</span></i></a></li>
@@ -257,11 +278,12 @@
 		</div>
 
 	</div>
+	{% endif %}
 
 	{# ########################## AUTHOR ################################ #}
 
 	{% if ! globals.bot %}
-	<div class="news-submitted margin-left">
+	<div class="news-submitted {% if posttype == "story" %}margin-left{% endif %}">
 		{% if type != 'short' %}
 			<a href="{{ self.username | useruri }}" class="suggestion u:{{ self.author }}">
 				{# <img src="{{ globals.base_static }}img/g.gif" data-src="{% exec get_avatar_url self.author, self.avatar, 25, 0 %}" data-2x="s:-25.:-40." alt="" class="lazy"/> #}
@@ -277,10 +299,12 @@
 		{% if self.status != 'published' %}
 			{% trans _('enviado: ') %}
 		{% endif %}
-		<time datetime="{{ self.sent_date_utc }}" class="tsrender" title="{% trans _('enviado') %}: {{ self.sent_date_utc }} UTC">________</time>
+		{% exec get_date_time self.sent_date as date_zone %}
+		<time datetime="{{ self.sent_date_utc }}" class="tsrender" title="{% trans _('enviado') %}: {{ date_zone }}">________</time>
     		{% if self.status == 'published' %}
 			{% trans _(', publicado: ') %}
-			<time datetime="{{ self.sub_date_utc }}" class="tsrender" title="{% trans _('publicado') %}: {{ self.sub_date_utc }} UTC">________</time>
+			{% exec get_date_time self.sub_date_utc as date_zone %}
+			<time datetime="{{ self.sub_date_utc }}" class="tsrender" title="{% trans _('publicado') %}: {{ date_zone }}">________</time>
 		{% endif %}
 	</div>
 	{% endif %}

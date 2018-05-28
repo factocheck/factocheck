@@ -344,7 +344,7 @@ class SitesMgr {
 	static public function get_active_sites($children = false) {
 		global $db;
 
-		return $db->get_col("select id from subs where parent = 0 and enabled");
+		return $db->get_col("select id from subs where sub and enabled");
 	}
 
 	static public function get_random_sub() {

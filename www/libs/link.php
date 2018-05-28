@@ -266,11 +266,12 @@ class Link extends LCPBase {
 		$dict['id'] = $this->id;
 		if ($value) {
 			$dict['value'] = $value;
+			/*
 			if ($value < 0) {
 				$dict['vote_description'] = get_negative_vote($value);
 			} else {
 				$dict['vote_description'] = _('¡genial!');
-			}
+			}*/
 		}
 		$dict['votes'] = $this->votes;
 		$dict['anonymous'] = $this->anonymous;
@@ -514,7 +515,7 @@ class Link extends LCPBase {
 				$db->rollback();
 				return false;
 			}
-			$this->insert_vote($current_user->user_karma);
+			//$this->insert_vote($current_user->user_karma);
 
 			// Add the new link log/event
 			Log::conditional_insert('link_new', $this->id, $this->author);
@@ -710,7 +711,9 @@ class Link extends LCPBase {
 
 		if(!$this->read) return;
 
-		if($type == 'frontpage') {
+		$posttype = $type;
+
+		if($type == 'frontpage' || $type == 'topnews') {
 			$type = 'full';
 			$content_full = false;
 			$pagetoserve = "link_summary_card.html";
@@ -783,7 +786,7 @@ class Link extends LCPBase {
 			$this->friend_votes = $db->get_results("SELECT vote_user_id as user_id, vote_value, user_avatar, user_login, UNIX_TIMESTAMP(vote_date) as ts,inet_ntoa(vote_ip_int) as ip FROM votes, users, friends WHERE vote_type='links' and vote_link_id=$this->id AND vote_user_id=friend_to AND vote_user_id > 0 AND user_id = vote_user_id AND friend_type = 'manual' AND friend_from = $current_user->user_id AND friend_value > 0 AND vote_value > 0 AND vote_user_id != $this->author ORDER BY vote_date DESC");
 
 		$sponsored = $this->is_sponsored();
-		$vars = compact('type', 'sponsored');
+		$vars = compact('type', 'sponsored', 'posttype');
 		$vars['self'] = $this;
 		$vars['content_full'] = $content_full;
 		//echo "<!-- NOTICIA: ".print_r($this,true)."-->\n";
@@ -872,8 +875,9 @@ class Link extends LCPBase {
 		$vote = new Vote('links', $this->id, $current_user->user_id);
 		if ($vote->exists(false)) return false;
 		// For karma calculation
-		$status = ( ! empty($this->sub_status) ? $this->sub_status : $this->status);
-		$vote_value = ($value > 0 ? $value : -$current_user->user_karma);
+		$status = (!empty($this->sub_status) ? $this->sub_status : $this->status);
+		//$vote_value = ($value > 0 ? $value : -$current_user->user_karma);
+		$vote_value = abs($value);
 
 		$karma_value=round($vote_value);
 /******* Simplified, it doesn't make much sense with subs
@@ -913,6 +917,7 @@ class Link extends LCPBase {
 
 			if (! $r) {
 				syslog(LOG_INFO, "failed transaction in Link::insert_vote: $this->id ($r)");
+				$db->rollback();
 				$value = false;
 			} else {
 				// Update in memory object
@@ -928,8 +933,8 @@ class Link extends LCPBase {
 					$this->karma += $karma_value;
 					$this->update_votes();
 				}
+				$db->commit();
 			}
-			$db->commit();
 		} else {
 			$db->rollback();
 			$value = false;
@@ -1216,8 +1221,7 @@ class Link extends LCPBase {
 		$votes_pos_anon = intval($db->get_var("select SQL_NO_CACHE count(*) from votes where vote_type='links' AND vote_link_id=$this->id and vote_user_id = 0 and vote_value > 0"));
 
 		$votes = $db->get_results("select SQL_NO_CACHE user_id, vote_value, user_karma from votes, users where vote_type='links' AND vote_link_id=$this->id and vote_user_id > 0 and vote_user_id = user_id and user_level !='disabled'");
-		$n = $vlow = $vhigh = 0;
-		$diff = 0;
+		$n = $vlow = $vhigh = $diff = 0;
 		foreach ($votes as $vote) {
 			if ($vote->vote_value > 0) {
 				$votes_pos++;
@@ -1239,7 +1243,7 @@ class Link extends LCPBase {
 			} else {
 				$votes_neg++;
 				if ($affinity && $affinity[$vote->user_id] < 0) {
-					$karma_neg_user += min(-6, $vote->user_karma *	$affinity[$vote->user_id]/100);
+					$karma_neg_user += min(-6, $vote->user_karma * $affinity[$vote->user_id]/100);
 					//echo "Negativo: " .  min(-5, $vote->user_karma *	$affinity[$vote->user_id]/100) . "$vote->user_id\n";
 					$diff -= ($vote->user_karma + $karma_neg_user);
 				} else {
@@ -1328,7 +1332,8 @@ class Link extends LCPBase {
 		}
 		*/
 
-		$this->karma = ($karma_pos_user+$karma_pos_ano+$karma_neg_user)*$this->coef;
+		//$this->karma = ($karma_pos_user+$karma_pos_ano+$karma_neg_user)*$this->coef;
+		$this->karma = $karma_pos_user*$this->coef;
 		if ($meta_coef && $meta_coef[$this->sub_id]) {
 			$this->karma *= $meta_coef[$this->sub_id];
 			// Annotate meta's coeeficient if the variation > 5%

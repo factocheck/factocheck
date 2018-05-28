@@ -44,7 +44,7 @@
 	{% include 'link/content_type_buttons.html' %}
 {% endif %}
 
-{% if not link.is_new && (link.votes > 0 && (link.status != 'published' OR current_user.user_level == 'god' OR link.is_sub_owner) &&
+{% if not link.is_new && ((link.status != 'published' OR current_user.user_level == 'god' OR link.is_sub_owner) &&
 		(( not link.discarded && current_user.user_id == link.author) OR current_user.admin OR link.is_sub_owner)) %}
 
 	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -112,7 +112,8 @@
 	</div>
 {% endif %}
 
-{% exec print_subs_form link.sub_id as dummy %}
+{# {% exec print_subs_form link.sub_id as dummy %} #}
+<input name="sub_id" type="hidden" value="{{ link.sub_id }}">
 
 {% if link.trackback %}
 	<p><label for="trackback">{% trans _('trackback') %}:</label><br />

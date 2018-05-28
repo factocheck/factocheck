@@ -22,16 +22,16 @@ $sites = SitesMgr::get_active_sites();
 
 foreach ($sites as $site) {
 	SitesMgr::__init($site);
-	$site_info = SitesMgr::get_info($site);
+	//$site_info = SitesMgr::get_info($site);
 
 	echo "********************** SITE: ".$site_info->name." (".$site.") ***************************\n";
 	promote($site);
 
-	if (! $site_info->sub) {
+	/*if (! $site_info->sub) {
 		echo "**********************   SUBS  -PROMOTE-   **********************************************\n";
 		promote_from_subs($site, $globals['promote_hours'], $globals['promote_min_karma'], $globals['promote_min_votes']);
 		echo "*****************************************************************************************\n";
-	}
+	}*/
 }
 
 function promote_from_subs($destination, $hours, $min_karma, $min_votes) {
@@ -324,7 +324,7 @@ function publish($site, $link) {
 
 	// Calculate votes average
 	// it's used to calculate and check future averages
-	$votes_avg = (float) $db->get_var("select SQL_NO_CACHE avg(vote_value) from votes, users where vote_type='links' AND vote_link_id=$link->id and vote_user_id > 0 and vote_value > 0 and vote_user_id = user_id and user_level !='disabled'");
+	$votes_avg = (float) $db->get_var("select SQL_NO_CACHE avg(abs(vote_value)) from votes, users where vote_type='links' AND vote_link_id=$link->id and vote_user_id = user_id and user_level !='disabled'");
 	if ($votes_avg < $globals['users_karma_avg']) $link->votes_avg = max($votes_avg, $globals['users_karma_avg']*0.97);
 	else $link->votes_avg = $votes_avg;
 
@@ -556,8 +556,8 @@ function update_link_karma($site, $link, $past_karma) {
 				} else {
 					$low_karma_coef = 1;
 				}
-				$bonus = round($c * 0.5 * $link->karma * $low_karma_coef * (1 - 5 * $link->negatives/$link->votes));
-				echo "BONUS: $link->karma $p, $c -> $bonus ($link->low_karma_perc, $low_karma_coef, $link->negatives/$link->votes)\n";
+				$bonus = round($c * 0.5 * $link->karma * $low_karma_coef; // * (1 - 5 * $link->negatives/$link->votes));
+				echo "BONUS: $link->karma $p, $c -> $bonus ($link->low_karma_perc, $low_karma_coef)\n"; // , $link->negatives/$link->votes)\n";
 			} else {
 				// Decrease for high affinity between voters
 				$c = $c - 1;

@@ -1,7 +1,7 @@
 <?php
 	include('config.php');
 	include(mnminclude.'html1.php');
-	do_header(_('FAQ') . ' | ' . _('mediatize'), '', false, false, '', false, false);
+	do_header(_('FAQ') . ' | ' . _('factocheck'), '', false, false, '', false, false);
 ?>
 
 <div id="singlewrap">
@@ -9,42 +9,28 @@
 <h1>Preguntas frecuentes</h1>
 <br/>
 <ul>
-<li><h2>¿Qué es mediatize?</h2>
-<p>Es un web que te permite enviar noticias o historias que serán revisadas por sus usuarios y serán promovidas a la página principal dependiendo de los votos recibidos. Cuando un usuario envía una noticia ésta queda en la <a target="_blank" href="queue"><em>cola de pendientes</em></a> hasta que reúne los votos suficientes para ser promovida a la página principal.
+<li><h2>¿Qué es factocheck?</h2>
+<p>Es un proyecto para crear una web con noticias que valide su autenticidad y ayude al mundo a descubrir la falsedad de la información, tan habitual en nuestros días.
+Permite enviar noticias que serán revisadas por sus usuarios y votadas como verdaderas o falsas. Cuando un usuario envía una noticia ésta queda en la <a target="_blank" href="new"><em>cola de nuevas</em></a> hasta que reúne los votos suficientes para ser promovida a <a target="_blank" href="trending"><em>Tendencias</em></a>. Las que más actividad tengan aparecen en "Destacadas".
 </p>
 </li>
 
 <li>
 <h2>¿Hace falta registrarse?</h2>
-<p>Sólo es necesario hacerlo para enviar historias y agregar comentarios.
+<p>Es necesario para poder votar, enviar noticias y agregar comentarios.
+</p>
+</li>
+
+<li>
+<h2>¿Cómo enviar noticias?</h2>
+<p>Debes <a target="_blank" href="register">registrarte</a> antes, es muy fácil y rápido. Hasta puedes usar redes sociales para hacerlo de forma inmediata con un solo clic. Luego seleccionas <a target="_blank" href="submit"><em>enviar noticia</em></a>. En un proceso de tres pasos simples la noticia será enviada a la <a target="_blank" href="queue">cola de nuevas</a>.
 </p>
 </li>
 
 
 <li>
-<h2>¿Cómo promover las historias?</h2>
-<p>Selecciona la opción <a target="_blank" href="queue"><em>nuevas</em></a> y te aparecerán las noticias no publicadas, ordenadas descendentemente por fecha de envío. Sólo tienes que votar aquellas que más te agradan o consideres importantes. Una vez superado unos umbrales de votos y <em>karma</em> serán promovidas a la página principal.</p>
-<p>No te olvides de leer las <a target="_blank" href="legal">condiciones de uso</a>.</p>
-</li>
-
-
-<li>
-<h2>¿Sólo cuenta el número de votos?</h2>
-<p>No, cuentan también el <em>karma</em> y si es voto anónimo o no.
-</p>
-</li>
-
-
-<li>
-<h2>¿Cómo enviar historias?</h2>
-<p>Debes <a target="_blank" href="register">registrarte</a> antes, es muy fácil y rápido. Luego seleccionas <a target="_blank" href="submit"><em>enviar historia</em></a>. En un proceso de tres pasos simples la historia será enviada a la <a target="_blank" href="queue">cola de pendientes</a>.
-</p>
-</li>
-
-
-<li>
-<h2>¿Qué tipos de historias hay que enviar?</h2>
-<p>Las que tú desees, pero piensa que estarán sujetas a la revisión de los lectores que las votarán, o no. Aún así, el objetivo principal es que se traten de noticias y apuntes de blogs. Lo que <strong>no debes hacer es <em>spam</em></strong>, es decir enviar muchos enlaces de unas pocas fuentes. Intenta ser variado. Envía historias que puedan ser interesantes para muchos. No mires sólo tu ombligo, usa el <strong>sentido común y un mínimo de espíritu colaborativo y respeto hacia los demás</strong>.
+<h2>¿Qué tipos de noticias hay que enviar?</h2>
+<p>Deben ser noticias Las que tú desees, pero piensa que estarán sujetas a la revisión de los lectores que las votarán, o no. Aún así, el objetivo principal es que se traten de noticias y apuntes de blogs. Lo que <strong>no debes hacer es <em>spam</em></strong>, es decir enviar muchos enlaces de unas pocas fuentes. Intenta ser variado. Envía noticias que puedan ser interesantes para muchos. No mires sólo tu ombligo, usa el <strong>sentido común y un mínimo de espíritu colaborativo y respeto hacia los demás</strong>.
 </p>
 </li>
 
@@ -60,54 +46,23 @@
 
 
 <li>
-<h2>¿Cómo se seleccionan las historias que se publican en la portada?</h2>
+<h2>¿Cómo se seleccionan las noticias que aparecen en Tendencias?</h2>
 <p>Lo hace un proceso que se ejecuta varias veces al día.</p>
 
-<p>Primero calcula cuál es el karma mínimo que han de tener las noticias. Este valor depende de la media del karma de las noticias que fueron promovidas en las últimas dos semanas, más un coeficiente que depende del tiempo transcurrido desde la publicación de la última noticia. Este coeficiente decrece a medida que pasa el tiempo y se hace uno (1) cuando ha pasado una hora. Eso quiere decir que pasada una hora, cuando el coeficiente se hizo uno, cualquier noticia que tenga un karma igual o superior a la media será promovida. Esto tiene dos objetivos, por un lado se persigue que si la <em>calidad</em> es constante se promoverá una media de una noticia por hora, pero las que reciban más votos (se espera que sea incremental) serán publicadas antes.
+<p>Primero calcula cuál es el karma mínimo que han de tener las noticias. Este valor depende de la media del karma de las noticias que fueron promovidas en los últimos días, más un coeficiente que depende del tiempo transcurrido desde la publicación de la última noticia. Este coeficiente decrece a medida que pasa el tiempo y se hace uno (1) cuando ha pasado una hora. Eso quiere decir que pasada una hora, cuando el coeficiente se hizo uno, cualquier noticia que tenga un karma igual o superior a la media será promovida. Esto hace que sean promovidas las noticias que tengan más votos y esos votos los haya recibido en un momento más cercano a su envío. El karma de cada noticia se calcula multiplicando el número de votos por el karma del autor del voto.
 </p>
-
-<p>El karma de cada noticia se calcula multiplicando el número de votos por el karma del autor del voto. Si es anónimo ese voto vale cuatro (4). Si es de un usuario registrado el valor es multiplicado por su karma.</p>
-
-<p>Finalmente hay una restricción adicional para evitar <em>abusos</em> de los usuarios registrados: sólo pueden ser promovidas aquellas noticias que al menos tengan <em>N</em> votos.</p>
-</li>
-
-<li>
-<h2>¿Qué es esa pestaña "descartadas" en la página de votación de pendientes (nuevas)?</h2>
-<p>Van a esa cola las noticias que: se "autodescartan" (por el propio usuario, dentro de los primeros 30 minutos desde su envío) y las que "descartan" los usuarios con privilegios del sitio por vulneración de las <a target="_blank" href="https://www.mediatize.info/legal#tos">condiciones de uso</a>.</p>
-</p>
-</li>
-
-<li>
-<h2>¿Qué es "postits"?</h2>
-<p>Una herramienta de comunicación entre los usuarios de mediatize y se organiza en pequeños apuntes, como los mini-post de un blog colectivo --de todos los usuarios de postits-- y a la vez individual. Puedes usarlo para cuestiones relacionadas con esta web o para explicar lo que quieras. Puedes escribir desde la web o el celular. Encontrarás <a target="_blank" href="http://meneame.wikispaces.com/N%C3%B3tame">más detalles en el wiki de Menéame</a>.</p>
-</li>
-
-<li>
-<h2>¿Para qué sirve la opción chismosa?</h2>
-<p>Muestra lo que sucede en mediatize en tiempo real. Si eres usuario registrado también puedes usarla para chatear.</p>
 </li>
 
 <li>
 <h2><a name="we"></a>¿Quién está detrás del mediatize?</h2>
-<p>Es un proyecto personal para crear una web con noticias propuestas por los mismos usuarios y publicadas (pasadas a portada) también por éllos.
+<p>Es un proyecto para crear una web con noticias que valide su autenticidad y ayude al mundo a descubrir la falsedad de la información, tan habitual en nuestros días.
 Encontrarás los datos de <strong>contacto</strong> en <a target="_blank" href="legal#contact">la página de las condiciones legales</a>.
 </p>
 </li>
 
 <li>
-<h2>¿Cuáles son las diferencias fundamentales con Digg y otros servicios similares?</h2>
-<ul>
-<li>Se permiten votos anónimos.</li>
-<li>La publicación de la noticia no sólo está basada en los votos, sino en el valor del karma de los usuarios que han votado.</li>
-<li>El sistema está específicamente programado para interactuar vía <em>trackbacks</em> con los sistemas de <em>blogs</em> existentes. En la mayoría de los casos detecta automáticamente las direcciones de <em>trackback</em>.</li>
-<li>Hay diversos RSS, casi para todos los gustos, incluso de búsquedas personalizadas.</li>
-</ul>
-</li>
-
-
-<li>
 <h2>¿Qué software se usa?</h2>
-<p>El software comenzó a desarrollarlo Ricardo Galli y Benjamí Villoslada con colaboraciones de terceros, más las modificaciones hechas para mediatize.</p>
+<p>El software comenzó a desarrollarlo Ricardo Galli y Benjamí Villoslada con colaboraciones de terceros, más las modificaciones hechas por Fermín Molina para otro agregador llamado <a href="https://www.mediatize.info" target="_blank">mediatize</a>, y que a su vez fue modificado para hacer "factocheck".</p>
 </li>
 
 <li>
@@ -119,11 +74,6 @@ Encontrarás los datos de <strong>contacto</strong> en <a target="_blank" href="
 <h2>¿Dónde notificamos errores, problemas o sugerencias?</h2>
 <p>Ver la <a target="_blank" href="legal#contact">sección de contacto</a> en la condiciones legales y de uso.
 </p>
-</li>
-
-<li>
-<h2>¿Cómo se pagan los gastos?</h2>
-<p>Con las <a href="<?php echo $globals['base_url_general'].'publicidad'?>">campañas publicitarias</a> exclusivas que Mediatize ofrece.</p>
 </li>
 
 </ul>

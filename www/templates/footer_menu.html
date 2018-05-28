@@ -4,8 +4,8 @@
 	<div id="footcol1" class="wideonly">
 	<h5>{% trans _('suscripciones por RSS') %}</h5>
 	<ul>
-	<li><a href="{{ globals.base_url }}rss" >{% trans _('publicadas') %}</a></li>
-	<li><a href="{{ globals.base_url }}rss?status=queued" >{% trans _('en cola') %}</a></li>
+	<li><a href="{{ globals.base_url }}rss" >{% trans _('tendencias') %}</a></li>
+	<li><a href="{{ globals.base_url }}rss?status=queued" >{% trans _('nuevas') %}</a></li>
 	<li><a href="{{ globals.base_url }}rss?active" >{% trans _('más activas') %}</a></li>
 
 	{% if current_user.user_id > 0 %}
@@ -21,12 +21,12 @@
 	<div id="footcol2">
 		<h5>ayuda</h5>
 		<ul id="helplist">
-		<li><a href="{{ globals.base_url_general }}faq-es">{% trans _('comenzando') %}</a></li>
+		{#<li><a href="{{ globals.base_url_general }}faq-es">{% trans _('comenzando') %}</a></li>#}
 		<li><a href="{{ globals.base_url_general }}faq-es">{% trans _('faq') %}</a></li>
 		<li><a href="{{ globals.base_url_general }}faq-es">{% trans _('ayuda') %}</a></li>
 		<li><a href="{{ globals.legal }}#contact">{% trans _('avisar errores') %}</a></li>
 		<li><a href="{{ globals.legal }}#contact">{% trans _('avisar abusos') %}</a></li>
-		<li><a href="{{ globals.base_url_general }}publicidad">{% trans _('publicidad') %}</a></li>
+		{#<li><a href="{{ globals.base_url_general }}publicidad">{% trans _('publicidad') %}</a></li>#}
 		</ul>
 	</div>
 
@@ -34,9 +34,9 @@
 	<div id="footcol3">
 		<h5>+mediatize</h5>
 		<ul id="moremenelist">
-		<li><a href="{{ globals.base_url_general }}trends">{% trans _('tendencias') %}</a></li>
-		<li><a href="/postits/">{% trans _('postits') %}</a></li>
-		<li><a href="http://blog.mediatize.info/">{% trans _('blog') %}</a></li>
+		<li><a href="{{ globals.base_url_general }}trends">{% trans _('trend words') %}</a></li>
+		{#<li><a href="/postits/">{% trans _('postits') %}</a></li>#}
+		<li><a href="http://blog.factocheck.com/">{% trans _('blog') %}</a></li>
 		{% if globals.fancybox_enabled %}
 			<li><a href="javascript:fancybox_gallery('all');">{% trans _('imágenes') %}</a></li>
 		{% endif %}
@@ -64,7 +64,7 @@
 		<li><a href="{{ globals.base_url }}top_comments">{% trans _('mejores comentarios') %}</a></li>
 		<li><a href="{{ globals.base_url }}cloud">{% trans _('nube de etiquetas') %}</a></li>
 		<li><a href="{{ globals.base_url }}sites_cloud">{% trans _('nube de webs') %}</a></li>
-		<li><a href="{{ globals.base_url }}promote">{% trans _('candidatas') %}</a></li>
+		{#<li><a href="{{ globals.base_url }}promote">{% trans _('candidatas') %}</a></li>#}
 		<li><a href="{{ globals.base_url_general }}values">{% trans _('parámetros básicos') %}</a></li>
 		</ul>
 	</div>

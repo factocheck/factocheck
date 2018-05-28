@@ -386,7 +386,7 @@ function do_friends_shaken () {
 	$friends = $db->get_col("select friend_to from friends where friend_type = 'manual' and friend_from = $user->id and friend_value > 0");
 	if ($friends) {
 		$friends_list = implode(',', $friends);
-		$sql = "select distinct vote_link_id as link_id from votes where vote_type = 'links' and vote_user_id in ($friends_list) and vote_value > 0 order by vote_link_id desc";
+		$sql = "select distinct vote_link_id as link_id from votes where vote_type = 'links' and vote_user_id in ($friends_list) order by vote_link_id desc";
 
 		$links = $db->get_results("$sql LIMIT $offset,$page_size");
 	}

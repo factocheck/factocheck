@@ -105,7 +105,7 @@ if($_SERVER['HTTP_HOST']) {
 		}
 	}
 } else {
-	if (!$globals['server_name']) $globals['server_name'] = 'mediatize.info'; // Warn: did you put the right server name?
+	if (!$globals['server_name']) $globals['server_name'] = 'factocheck.com'; // Warn: did you put the right server name?
 }
 
 $globals['base_url_general'] = $globals['base_url']; // Keep the original if it's modified in submnms
@@ -216,6 +216,54 @@ if ($globals['haanga_cache'][0] == '/') {
 require mnminclude.'Haanga.php';
 
 Haanga::configure($config);
+
+
+
+// Geolocalization: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
+if(isset($_COOKIE['site_id']) && isset($_COOKIE['lang']) && isset($_COOKIE['country'])
+	&& ctype_digit($_COOKIE['site_id'])     // security checks: length and chars type
+	&& strlen($_COOKIE['lang']) == 2
+	&& strlen($_COOKIE['country']) == 2
+	&& ctype_alpha($_COOKIE['lang'])
+	&& ctype_alpha($_COOKIE['country'])
+  ) {
+	$globals['site_id'] = $_COOKIE['site_id'];
+	$globals['lang'] = $dblang = $_COOKIE['lang'];
+	$globals['country'] = $_COOKIE['country'];
+	$globals['timezone'] = (isset($_COOKIE['timezone'])) ? $_COOKIE['timezone'] : geoip_time_zone_by_country_and_region($globals['country'], geoip_region_by_name($globals['user_ip']));
+	//syslog(LOG_INFO, "AA - site: ".$globals['site_id'].", lang: ".$globals['lang'].", country: ".$globals['country'].", timezone: ".$globals['timezone']);
+
+} else {
+	$country = geoip_country_code_by_name($globals['user_ip']);
+	$timezone = geoip_time_zone_by_country_and_region($country, geoip_region_by_name($globals['user_ip']));
+	$res = $db->get_row("select id,lang,timezone from subs where country = '".$country."'");
+
+	if(!empty($res) && isset($res->id) && isset($res->lang)) {
+		$globals['site_id'] = $res->id;
+		$globals['lang'] = $dblang = $res->lang;
+		$globals['country'] = $country;
+	} else {
+		$globals['site_id'] = $globals['default_site_id'];
+		$globals['lang'] = $dblang = $globals['default_lang'];
+		$globals['country'] = $globals['default_country'];
+	}
+
+	if(!empty($res) && !empty($res->timezone)) {
+		$globals['timezone'] = $res->timezone;
+	} else {
+		$globals['timezone'] = $timezone;
+	}
+
+	setcookie('site_id', $globals['site_id'], 0, $globals['base_url']);
+	setcookie('lang', $globals['lang'], 0, $globals['base_url']);
+	setcookie('country', $globals['country'], 0, $globals['base_url']);
+	setcookie('timezone', $globals['timezone'], 0, $globals['base_url']);
+	//syslog(LOG_INFO, "BB - site: ".$globals['site_id'].", lang: ".$globals['lang'].", country: ".$globals['country'].", timezone: ".$globals['timezone']);
+}
+
+//syslog(LOG_INFO, "site: ".$globals['site_id'].", lang: ".$globals['lang'].", country: ".$globals['country'].", timezone: ".$globals['timezone']);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function __($text) {
     return htmlentities($text, ENT_QUOTES, 'UTF-8', false);

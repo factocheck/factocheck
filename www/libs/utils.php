@@ -356,6 +356,9 @@ function get_date($epoch) {
 
 function get_date_time($epoch) {
 		global $globals;
+
+		date_default_timezone_set($globals['timezone']);
+
 		//return date("Y-m-d H:i", $epoch);
 		if (abs($globals['now'] - $epoch) < 72000) // Difference is less than 20 hours
 			return date(" H:i T", $epoch);

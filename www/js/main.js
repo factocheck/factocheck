@@ -24,11 +24,11 @@ function redirect(url) {
 	return false;
 }
 
-function vote_history(user, id) {
+function vote_history(user, id, value) {
 	var url = base_url + "backend/vote_history";
-	var content = "id=" + id + "&user=" + user + "&key=" + base_key + "&l=" + link_id + "&u=" + encodeURIComponent(document.referrer);
+	var content = "id=" + id + "&user=" + user + "&key=" + base_key + "&l=" + link_id + "&value=" + value + "&u=" + encodeURIComponent(document.referrer);
 	url = url + "?" + content;
-	disable_vote_link(id, -1, "...", '');
+	disable_vote_link(id, value, "...", '');
 	$.getJSON(url,
 		function(data) {
 			parseLinkAnswer(id, data);
@@ -79,33 +79,55 @@ function update_comment_vote(id, value, data) {
 }
 
 function disable_vote_link(id, value, mess, background) {
-	var html = '<a class="btn vote-button';
-	if (value < 0)
-		html += ' negative';
-	html += ' disabled">';
-	$('#a-va-' + id).html(html+mess+'</a>');
-	if (background.length > 0) $('#a-va-' + id).css('background', background);
+	if (value < 0) {
+		$('#a-shake-true-' + id).addClass('grayed disabled').html('');
+		$('#a-shake-false-' + id).addClass('disabled');
+		if(mess != '') {
+			$('#a-shake-false-' + id).html(mess);
+		} else {
+			$('#a-shake-false-' + id).html('<i class="fa fa-times-circle"></i>');
+		}
+		if (background.length > 0) $('#a-shake-false-' + id).css('background', background);
+		$('#a-shake-false-' + id).fadeIn('slow');
+	} else {
+		$('#a-shake-false-' + id).addClass('grayed disabled').html('');
+		$('#a-shake-true-' + id).addClass('disabled');
+		if(mess) {
+			$('#a-shake-true-' + id).html(mess);
+		} else {
+			$('#a-shake-true-' + id).html('<i class="fa fa-check-circle"></i>');
+		}	
+		if (background.length > 0) $('#a-shake-true-' + id).css('background', background);
+		$('#a-shake-true-' + id).fadeIn('slow');
+	}
 }
 
 function parseLinkAnswer (id, link) {
-	var votes;
+	var votes_true, votes_false;
+
 	$('#problem-' + id).hide();
 	if (link.error || id != link.id) {
-		disable_vote_link(id, -1, "{% trans _('grr...') %}", '');
+		disable_vote_link(id, link.value, "{% trans _('grr...') %}", '');
 		mDialog.notify("{% trans _('Error:') %} "+link.error, 5);
 		return false;
 	}
-	votes = parseInt(link.votes)+parseInt(link.anonymous);
-	if ($('#a-votes-' + link.id).html() != votes) {
+
+	votes_true = parseInt(link.votes);
+	votes_false = parseInt(link.negatives);
+	/*if ($('#a-votes-true-' + link.id).html() != votes_true) {*/
 		$('#a-votes-' + link.id).hide();
-		$('#a-votes-' + link.id).html(votes+"");
+		$('#a-votes-' + link.id).html(votes_false+"-"+votes_true);
 		$('#a-votes-' + link.id).fadeIn('slow');
-	}
-	/*$('#a-neg-' + link.id).html(link.negatives+"");*/
+		$('#a-votes-false-' + link.id).html(votes_false+"");
+		$('#a-votes-true-' + link.id).html(votes_true+"");
+		$('#a-karma-' + link.id).html(link.karma+"");
+	/*}
+	$('#a-neg-' + link.id).html(link.negatives+"");
 	$('#a-usu-' + link.id).html(link.votes+"");
 	$('#a-ano-' + link.id).html(link.anonymous+"");
 	$('#a-karma-' + link.id).html(link.karma+"");
-	disable_vote_link(link.id, link.value, link.vote_description, '');
+	disable_vote_link(link.id, link.value, link.vote_description, '');*/
+	disable_vote_link(link.id, link.value, '', '');
 	return false;
 }
 
@@ -1320,8 +1342,10 @@ function openNav() {
 		panel.append(sb);
 		sb.show();
 		panel.append($('#header-menu .header-menu01').clone());
+		/*
 		panel.append('<div class="nav-panel-separator"></div>');
 		panel.append('<ul><li><a href="/postits">postits</a></li><li><a href="/sneak">chismosa</a></li></ul>');
+		*/
 	}
 	panel.css({ 'width': '250px' });
 	wpr.css({ 'opacity': '0.2' });
@@ -1809,8 +1833,12 @@ var fancyBox = new function () {
 		data = decode_data(readStorage("n_"+user_id));
 		var html = "";
 		var red = ' class="red"';
+		/*
 		var a = ['privates', 'posts', 'comments', 'friends'];
 		var b = ['fa-envelope', 'fa-sticky-note-o', 'fa-comments', 'fa-users'];
+		*/
+		var a = ['comments'];
+		var b = ['fa-comments'];
 		for (var i=0; i < a.length; i++) {
 			field = a[i];
 			var counter = (data && data[field]) ? data[field] : 0;
@@ -2426,6 +2454,23 @@ $(document).ready(function () {
 	/*$('img.lazy').unveil({base_url: base_static, version: version_id, cache_dir: base_cache, threshold: 100});*/
 	$('#backTop').backTop();
 	$('[data-toggle="popover"]').popover();
+
+	/* Language selection box */
+	var site_id  = readCookie('site_id', "{{ globals.base_url }}");
+	var country  = readCookie('country', "{{ globals.base_url }}");
+	var lang     = readCookie('lang', "{{ globals.base_url }}");
+	$("#country-dropbox").selectpicker('val', site_id+","+country+","+lang).selectpicker('render');
+	$("#country-dropbox").on('changed.bs.select', function(e, clickedIndex, newValue, oldValue){
+		var x = this.selectedIndex;
+		var y = this.options;
+		var values = y[x].value.split(',');
+		createCookie('site_id', values[0], 0, "{{ globals.base_url }}");
+		createCookie('country', values[1], 0, "{{ globals.base_url }}");
+		createCookie('lang', values[2], 0, "{{ globals.base_url }}");
+		$(this).selectpicker('val', values[0]+","+values[1]+","+values[2]);
+		/*console.log(values);*/
+		location.assign("/");
+	});
 
 	/* Share menu things */
 	$("a.share-menu").popover({

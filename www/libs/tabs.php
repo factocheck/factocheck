@@ -5,7 +5,7 @@ final class Tabs
 	static function renderForSection($section, $options, $tab_class = '')
 	{
 		switch ($section) {
-			case _('portada tema'):
+			case _('portada'):
 				return self::renderForIndex($options, $tab_class);
 
 			case _('story'):
@@ -100,12 +100,12 @@ final class Tabs
 			$items[] = array('id' => 7, 'url' => $globals['meta_subs'], 'title' => _('suscripciones'));
 		}
 
-		$items[] = array('id' => 8, 'url' => '?meta=_*', 'title' => _('temas/*'));
+		//$items[] = array('id' => 8, 'url' => '?meta=_*', 'title' => _('temas/*'));
 
 		// RSS teasers
 		switch ($option) {
 			case 7: // Personalised, published
-				$feed = array("url" => "?subs=" . $current_user->user_id, "title" => _('suscripciones'));
+				//$feed = array("url" => "?subs=" . $current_user->user_id, "title" => _('suscripciones'));
 				break;
 
 			default:
@@ -113,9 +113,9 @@ final class Tabs
 				break;
 		}
 
-		if ($current_user->user_id > 0) {
+		/*if ($current_user->user_id > 0) {
 			$items[] = array('id' => 1, 'url' => '?meta=_friends', 'title' => _('amigos'));
-		}
+		}*/
 
 		return Haanga::Load('print_tabs.html', compact('items', 'option', 'feed', 'tab_class'), true);
 	}
@@ -194,7 +194,7 @@ final class Tabs
 		$items = array();
 		$items[] = array('id' => 1, 'url' => 'queue' . $globals['meta_skip'], 'title' => _('nuevas'));
 
-		if ($current_user->has_subs) {
+		/*if ($current_user->has_subs) {
 			$items[] = array('id' => 7, 'url' => 'queue' . $globals['meta_subs'], 'title' => _('suscripciones'));
 		}
 
@@ -207,7 +207,7 @@ final class Tabs
 
 		if (!$globals['bot']) {
 			$items [] = array('id' => 5, 'url' => 'queue?meta=_discarded', 'title' => _('descartadas'));
-		}
+		}*/
 
 		// Print RSS teasers
 		if (!$globals['mobile']) {
@@ -220,6 +220,8 @@ final class Tabs
 					$feed = array("url" => "?status=queued", "title" => "");
 					break;
 			}
+		} else {
+			$feed = array("url" => "?status=queued", "title" => "");
 		}
 
 		return Haanga::Load('print_tabs.html', compact('items', 'option', 'feed', 'tab_class'), true);

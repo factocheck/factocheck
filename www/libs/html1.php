@@ -51,7 +51,7 @@ class MenuOption{
 
 
 
-function do_header($title, $id='home', $options = false, $tab_options = false, $tab_class = '', $show_central_header = true, $show_submenu = true) {
+function do_header($title, $id='home', $options = false, $tab_options = false, $tab_class = '', $show_central_header = false, $show_submenu = true) {
 	global $current_user, $dblang, $globals, $db;
 
 	header('Content-Type: text/html; charset=utf-8');
@@ -75,7 +75,7 @@ function do_header($title, $id='home', $options = false, $tab_options = false, $
 		$globals['extra_js'][] = 'jquery.form.min.js';
 	}
 
-	$sites = $db->get_results("select SQL_CACHE * from subs where visible order by id asc");
+	$sites = $db->get_results("select SQL_CACHE * from subs where sub order by id asc");
 	$this_site = SitesMgr::get_info();
 	$this_site_properties = SitesMgr::get_extended_properties();
 
@@ -108,13 +108,13 @@ function do_header($title, $id='home', $options = false, $tab_options = false, $
 		//if ($this_site->enabled && empty($this_site_properties['new_disabled'])) {
 		//	if( $globals['mobile'] ) $menu_options[] = new MenuOption(_('enviar historia'), $globals['base_url'].'submit', $id, _('enviar nueva historia'));
 		//}
-		$menu_options[] = new MenuOption(_('portada tema'), $globals['base_url'], $id, _('página principal'));
+		$menu_options[] = new MenuOption(_('portada'), $globals['base_url'], $id, _('página principal'));
 		$menu_options[] = new MenuOption(_('nuevas'), $globals['base_url'].'queue', $id, _('votar noticias pendientes'));
-		$menu_options[] = new MenuOption(_('temas'), $globals['base_url'].'temas', $id, _('temas variados'));
-		$menu_options[] = new MenuOption(_('populares'), $globals['base_url'].'popular', $id, _('historias más votadas'));
+		//$menu_options[] = new MenuOption(_('temas'), $globals['base_url'].'temas', $id, _('temas variados'));
+		/*$menu_options[] = new MenuOption(_('populares'), $globals['base_url'].'popular', $id, _('historias más votadas'));
 		$menu_options[] = new MenuOption(_('más visitadas'), $globals['base_url'].'top_visited', $id, _('historias más visitadas/leídas'));
 		$menu_options[] = new MenuOption(_('más comentadas'), $globals['base_url'].'top_commented', $id, _('historias más comentadas'));
-		$menu_options[] = new MenuOption(_('destacadas'), $globals['base_url'].'top_active', $id, _('historias más activas'));
+		$menu_options[] = new MenuOption(_('destacadas'), $globals['base_url'].'top_active', $id, _('historias más activas'));*/
 	}
 
 	$tabs = Tabs::renderForSection($id, $tab_options, $tab_class);

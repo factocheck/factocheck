@@ -4,11 +4,11 @@
 	<fieldset class="margin-bottom">
 	<legend>{% trans _('preferencias básicas') %}</legend>
 	<table class="keyvalue">
-
+{#
 	<tr><th>{% trans _('mostrar suscripciones por defecto en la portada') %}:</th>
 	<td><input name="subs_default" id="subs_default" type="checkbox" value="subs_default"/></td>
 	</tr>
-
+#}
 	<tr><th>{% trans _('comentarios siempre por orden cronológico') %}:</th>
 	<td><input name="com_order" id="com_order" type="checkbox" value="com_order"/></td>
 	</tr>
@@ -126,12 +126,13 @@
 		</td></tr>
     {% endif %}
     {% if user.id == current_user.user_id OR current_user.user_level == 'god' %}
-	    <tr><th>{% trans _('clave API') %}:</th>
+	{#    <tr><th>{% trans _('clave API') %}:</th>
         <td><a class="fancybox" href="{{ globals.base_url }}backend/get_user_api_key.php?id={{user.id}}" title="API key">{% trans _('leer clave API') %}</a> ({% trans _('no la divulgues') %})</td></tr>
         {% if user.adcode %}
 			<tr><th>{% trans _('Código AdSense') %}:</th><td>{{user.adcode}}&nbsp;</td></tr>
 			<tr><th>{% trans _('Canal AdSense') %}:</th><td>{{user.adchannel}}&nbsp;</td></tr>
         {% endif %}
+	#}
     {% endif %}
 	<tr><th>{% trans _('karma') %}:</th><td>{{user.karma}}
     {% if (user.id == current_user.user_id OR current_user.user_level == 'god' OR current_user.user_level == 'admin') && user.karma_log %}
@@ -142,12 +143,12 @@
 
 	{% if user.stats %}
 		<tr><th>{% trans _('noticias enviadas')%}:</th><td>{{user.total_links}}</td></tr>
-    	{% if entropy %}
+	{#{% if entropy %}
 			<tr><th><em>{% trans _('entropía') %}</em>:</th><td>{{entropy}}%</td></tr>
-    	{% endif %}
-		<tr><th>{% trans _('noticias publicadas') %}:</th><td>{{user.published_links}} ({{percent}}%)</td></tr>
+    	{% endif %}#}
+		<tr><th>{% trans _('noticias relevantes') %}:</th><td>{{user.published_links}} ({{percent}}%)</td></tr>
 		<tr><th>{% trans _('comentarios') %}:</th><td>{{user.total_comments}}</td></tr>
-		<tr><th>{% trans _('postits') %}:</th><td>{{user.total_posts}}</td></tr>
+		{#<tr><th>{% trans _('postits') %}:</th><td>{{user.total_posts}}</td></tr>#}
 		<tr><th>{% trans _('número de votos') %}:</th><td>{{user.total_votes}}</td></tr>
 	{% endif %}
 

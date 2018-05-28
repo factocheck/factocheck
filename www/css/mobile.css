@@ -40,6 +40,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 */
 
+h2.index-header {
+	margin-left: 0;
+	margin-bottom: 20px;
+}
+
 #variable {
 	min-width: 0;
 	margin-top: 44px;
@@ -176,6 +181,11 @@ opacity:0.8;
 
 #cboxTitle {
 font-weight: normal;
+}
+
+.vote-space {
+	margin-bottom: 20px;
+	margin-top: 10px;
 }
 
 /*
@@ -430,10 +440,10 @@ a.comment-bubble {
 }
 
 .dropdown-menu.notifications.bullet.pull-right:before {
-	right: 52px;
+	right: 82px;
 }
 .dropdown-menu.notifications.bullet.pull-right:after {
-	right: 53px;
+	right: 83px;
 }
 
 .mobile-bar #notifications span,
@@ -555,5 +565,19 @@ a.dropdown.temas-dp:before {
 
 .related {
 	margin-left: 0;
+}
+
+
+/* ************************************************ */
+.topnewsf {
+        border-left: 0;
+        background-color: #ffeaea;
+	padding: 4px 4px 0 4px;
+}
+
+.topnewst {
+        border-right: 0;
+        background-color: #eaffea;
+	padding: 4px 4px 0 4px;
 }
 

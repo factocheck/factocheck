@@ -36,13 +36,14 @@ $votes_page_size = 40;
 $votes_offset=($votes_page-1)*$votes_page_size;
 
 
-$votes_users = $db->get_var("SELECT count(*) FROM votes WHERE vote_type='links' and vote_link_id=".$globals['link_id']." AND vote_user_id!=0");
-$votes_users_positive = $db->get_var("SELECT count(*) FROM votes WHERE vote_type='links' and vote_link_id=".$globals['link_id']." AND vote_user_id!=0 and vote_value > 0");
-$votes_anon = $db->get_var("SELECT count(*) FROM votes WHERE vote_type='links' and vote_link_id=".$globals['link_id']." AND vote_user_id=0");
+$votes_users = $db->get_var("SELECT count(*) FROM votes WHERE vote_type='links' and vote_link_id=".$globals['link_id']);
 
+/*
+$votes_users_positive = $db->get_var("SELECT count(*) FROM votes WHERE vote_type='links' and vote_link_id=".$globals['link_id']." AND vote_value > 0");
 $negatives = $db->get_results("select vote_value, count(vote_value) as count from votes where vote_type='links' and vote_link_id=".$globals['link_id']." and vote_value < 0 group by vote_value order by count desc");
 
 $total_negatives = 0;
+
 
 echo '<div class="news-details">';
 if ($negatives) {
@@ -54,6 +55,7 @@ if ($negatives) {
 	}
 }
 echo '</div>';
+*/
 
 /*if ($no_show_voters) {
 	// don't show voters if the user votes the link
@@ -67,22 +69,11 @@ echo '</div>';
 		$vote_detail = get_date_time($vote->ts);
 		// If current users is a god, show the first IP addresses
 		if ($current_user->user_level == 'god') $vote_detail .= ' ('.preg_replace('/\.[0-9]+$/', '', $vote->ip).')';
-		if ($vote->vote_value>0) {
-			$vote_detail .= ' '._('valor').":&nbsp;$vote->vote_value";
-			echo '<a href="'.get_user_uri($vote->user_login).'" title="'.$vote->user_login.': '.$vote_detail.'">';
-			echo '<img class="avatar" src="'.get_avatar_url($vote->vote_user_id, $vote->user_avatar, 20).'" width="20" height="20" alt=""/>';
-			echo $vote->user_login.'</a>';
-		} else {
-			if($globals['show_negatives'] > 0 && $vote->ts > $globals['show_negatives']) {
-				echo '<a href="'.get_user_uri($vote->user_login).'" title="'.$vote->user_login.': '.$vote_detail.'">';
-				echo '<img src="'.get_avatar_url($vote->vote_user_id, $vote->user_avatar, 20).'" width="20" height="20" alt=""/></a>';
-				echo '<span>'.get_negative_vote($vote->vote_value).'</span>';
-			} else {
-				echo '<span>';
-				echo '<img src="'.$globals['base_static'].'img/mnm/mnm-anonym-vote-01.png" width="20" height="20" alt="'._('anónimo').'" title="'.$vote_detail.'"/>';
-				echo get_negative_vote($vote->vote_value).'</span>';
-			}
-		}
+		$vote_detail .= ' '._('valor').":&nbsp;".abs($vote->vote_value);
+		echo '<a href="'.get_user_uri($vote->user_login).'" title="'.$vote->user_login.': '.$vote_detail.'">';
+		echo '<img class="avatar" src="'.get_avatar_url($vote->vote_user_id, $vote->user_avatar, 20).'" width="20" height="20" alt=""/>';
+		$vote_color = ($vote->vote_value>0) ? "true" : "false";
+		echo '<span class="'.$vote_color.'">'.$vote->user_login.'</span></a>';
 		echo '</div>';
 	}
 	echo "</div>\n";

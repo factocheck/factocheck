@@ -1,6 +1,7 @@
 <?php
 $routes = array(
 	''		=> 'index.php',
+	'trending'	=> 'trending.php',
 	'story'		=> 'story.php',
 	'submit'	=> 'submit.php',
 	'subedit'	=> 'subedit.php',
@@ -16,7 +17,7 @@ $routes = array(
 	'rsss'		=> 'rsss.php',
 	'promote'	=> 'promote.php',
 	'values'	=> 'values.php',
-	'queue'		=> 'shakeit.php',
+	'new'		=> 'shakeit.php',
 	'legal'		=> 'legal.php',
 	'go'		=> 'go.php',
 //	'b'		=> 'bar.php',

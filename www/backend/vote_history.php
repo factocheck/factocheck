@@ -21,6 +21,14 @@ if(!($id=check_integer('id'))) {
 	error(_('falta el ID del artículo'));
 }
 
+if(!($value=check_integer('value'))) {
+	error(_('falta valor del voto'));
+}
+
+if($value != 1 && $value != -1) {
+	error(_('valor de voto incorrecto'));
+}
+
 if(empty($_REQUEST['user']) && $_REQUEST['user'] !== '0' ) {
 	error(_('falta el código de usuario'));
 }
@@ -34,10 +42,11 @@ if(!$link) {
 	error(_('artículo inexistente'));
 }
 
-if(!$link->is_votable() || $link->total_votes == 0) {
+if(!$link->is_votable()) { //|| $link->total_votes == 0) {
 	error(_('votos cerrados'));
 }
 
+/*
 // Only if the link has been not published, let them play
 if ($current_user->user_id == 0 && $link->status != 'published') {
 	if (! $anonnymous_vote) {
@@ -50,27 +59,23 @@ if ($current_user->user_id == 0 && $link->status != 'published') {
 		}
 	}
 }
+*/
 
-if($current_user->user_id != $_REQUEST['user']) {
-	error(_('usuario incorrecto'));
+if($current_user->user_id == 0 || $current_user->user_id != $_REQUEST['user']) {
+	error(_('usuario incorrecto o necesita hacer login para poder votar'));
 }
 
-if ($current_user->user_id == 0) $ip_check = 'and vote_ip_int = '.$globals['user_ip_int'];
-else $ip_check = '';
-$votes_freq = $db->get_var("select count(*) from votes where vote_type='links' and vote_user_id=$current_user->user_id and vote_date > subtime(now(), '0:0:30') $ip_check");
 
 // Check the user is not a clon by cookie of others that voted the same link
-if ($current_user->user_id > 0 && $link->status != 'published') {
+if ($link->status != 'published') {
 	if (UserAuth::check_clon_votes($current_user->user_id, $link->id, 5, 'links') > 0) {
 		error(_('no se puede votar con clones'));
 	}
 }
 
-if ($current_user->user_id > 0) $freq = 3;
-else $freq = 2;
-
-
-if ($link->status == 'published')  $freq *= 2; // Allow to play a little more if published
+$votes_freq = $db->get_var("select count(*) from votes where vote_type='links' and vote_user_id=$current_user->user_id and vote_date > subtime(now(), '0:0:30')");
+$freq = 3;
+if ($link->status == 'published') $freq *= 2; // Allow to play a little more if published
 /*
 // Check for clicks vs votes
 // to avoid "cowboy votes" without reading the article
@@ -87,36 +92,28 @@ if (!empty($link->url) && $globals['click_counter']
 }
 */
 if ($votes_freq > $freq) {
-	if ($current_user->user_id > 0 && $current_user->user_karma > 4 && $link->status != 'published') {
+	/*if ($current_user->user_karma > 4 && $link->status != 'published') {
 		// Crazy votes attack, decrease karma
 		// she does not deserve it :-)
 		$user = new User($current_user->user_id);
 		$user->add_karma(-0.2, _('voto cowboy'));
 		error(_('¡tranquilo cowboy!'). ', ' . _('tu karma ha bajado: ') . $user->karma);
-	} else	{
+	} else	{*/
 		error(_('¡tranquilo cowboy!'));
-	}
+	//}
 }
 
-if($current_user->user_id>0) {
-	$value = $current_user->user_karma;
-} else {
-	$value=$globals['anon_karma'];
-}
+$value *= $current_user->user_karma;
 
 if (!$link->insert_vote($value)) {
-	if ($current_user->user_id > 0) {
-		error(_('ya se votó antes con el mismo usuario o IP'));
-	} else {
-		error(_('ya se votó antes desde la misma IP'));
-	}
+	error(_('ya se votó antes con el mismo usuario o IP'));
 }
-
+/*
 if ($link->status == 'discard' && $current_user->user_id>0 && $link->votes > $link->negatives && $link->karma > 0) {
 	$link->status = 'queued';
 	$link->store_basic();
 }
-
+*/
 echo $link->json_votes_info(intval($value));
 
 function error($mess) {

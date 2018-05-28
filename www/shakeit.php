@@ -23,7 +23,7 @@
 include_once('config.php');
 include(mnminclude.'html1.php');
 
-$page_size = $globals['page_size'] * 2;
+$page_size = $trending_size = $globals['new_size'];
 
 meta_get_current();
 
@@ -126,6 +126,8 @@ echo '<div>';
 echo '<div id="newswrap" class="col-sm-9">';
 echo '<div class="row">';
 
+echo '<h2 class="index-header">'._('Novedades').'</h2>';
+
 // *** Sorting in a subselect only works with myslq:
 //     http://stackoverflow.com/questions/26372511/mysql-order-by-inside-subquery
 //     https://mariadb.atlassian.net/browse/MDEV-3926
@@ -147,10 +149,9 @@ if ($links) {
 	}
 }
 
-
+echo '</div>'; /* end row */
 do_pages($rows, $page_size);
-echo '</div></div>';
-
+echo '</div>';
 
 
 /*** SIDEBAR ****/

@@ -117,13 +117,13 @@
 {% endif %}
 </fieldset>
 
+{#
 <fieldset><legend>{% trans _('opciones de visualización') %}</legend>
 <p><label>{% trans _('mostrar todos los comentarios') %}:&nbsp;
 <input  name="comment_pref" type="checkbox" value="1" {% if (user.comment_pref & 1) > 0 %} checked="true"{% endif %}/>
 </label></p>
-
 </fieldset>
-
+#}
 
 <fieldset><legend>{% trans _('contraseña') %}</legend>
 <p>{% trans _('introduce la nueva clave para cambiarla -no se cambiará si la dejas en blanco:') %}</p>
@@ -158,7 +158,7 @@
 	<p><i class="fa fa-warning"></i>{% trans _('¡ATENCIÓN! La cuenta será deshabilitada definitivamente.') %}</p>
 	<br/>
 	<p class="note">{% trans _('Se eliminarán automáticamente los datos personales.') %}<br/>
-	{% trans _('Los envíos, postits y comentarios NO se borrarán.') %}</p><br/>
+	{% trans _('Los envíos y comentarios NO se borrarán.') %}</p><br/>
 	<p><label>{% trans _('Sí, quiero deshabilitarla') %}: <input  name="disable" type="checkbox" value="1"/></label></p>
 	<br/>
 	<p><input type="submit" name="disabledme" value="{% trans _('deshabilitar cuenta') %}" class="button" /></p>
