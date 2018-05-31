@@ -215,16 +215,16 @@ if ($links) {
 		echo "	<item>\n";
 
 		// Meneame own namespace
-		echo "		<mediatize:link_id>$link->id</mediatize:link_id>\n";
-		echo "		<mediatize:sub>$link->sub_name</mediatize:sub>\n";
-		echo "		<mediatize:status>$link->status</mediatize:status>\n";
-		echo "		<mediatize:user>$link->username</mediatize:user>\n";
-		echo "		<mediatize:clicks>".$link->clicks."</mediatize:clicks>\n";
-		echo "		<mediatize:votes>".intval($link->votes+$link->anonymous)."</mediatize:votes>\n";
-		echo "		<mediatize:negatives>$link->negatives</mediatize:negatives>\n";
-		echo "		<mediatize:karma>".intval($link->karma)."</mediatize:karma>\n";
-		echo "		<mediatize:comments>$link->comments</mediatize:comments>\n";
-		echo "		<mediatize:url>".htmlspecialchars($link->url)."</mediatize:url>\n";
+		echo "		<factocheck:link_id>$link->id</factocheck:link_id>\n";
+		echo "		<factocheck:sub>$link->sub_name</factocheck:sub>\n";
+		echo "		<factocheck:status>$link->status</factocheck:status>\n";
+		echo "		<factocheck:user>$link->username</factocheck:user>\n";
+		echo "		<factocheck:clicks>".$link->clicks."</factocheck:clicks>\n";
+		echo "		<factocheck:true>".intval($link->votes)."</factocheck:true>\n";
+		echo "		<factocheck:false>$link->negatives</factocheck:false>\n";
+		echo "		<factocheck:karma>".intval($link->karma)."</factocheck:karma>\n";
+		echo "		<factocheck:comments>$link->comments</factocheck:comments>\n";
+		echo "		<factocheck:url>".htmlspecialchars($link->url)."</factocheck:url>\n";
 
 		// Title must not carry htmlentities
 		echo "		<title>".htmlentities2unicodeentities($link->title)."</title>\n";
@@ -307,7 +307,7 @@ function do_header($title) {
 	echo '	xmlns:dc="https://purl.org/dc/elements/1.1/"'."\n";
 	echo '	xmlns:georss="https://www.georss.org/georss"'."\n";
 	echo '	xmlns:media="https://search.yahoo.com/mrss/"'."\n";
-	echo '	xmlns:mediatize="https://www.mediatize.info/faq-es.php"'."\n";
+	echo '	xmlns:factocheck="https://www.factocheck.com/faq-es.php"'."\n";
 	echo ' >'. "\n";
 	echo '<channel>'."\n";
 	echo'	<title>'.$title.'</title>'."\n";
@@ -316,7 +316,7 @@ function do_header($title) {
 	echo"	<image><title>$title</title><link>https://".get_server_name().$home."</link><url>https://".get_static_server_name().$globals['base_url']."img/favicons/logo_64x64.png</url></image>\n";
 	echo'	<description>'._('Sitio colaborativo de publicación y comunicación entre blogs').'</description>'."\n";
 	echo'	<pubDate>'.date("r", $last_modified).'</pubDate>'."\n";
-	echo'	<generator>https://blog.mediatize.info/</generator>'."\n";
+	echo'	<generator>https://blog.factocheck.com/</generator>'."\n";
 	echo'	<language>'.$dblang.'</language>'."\n";
 	if ($globals['pubsub'] && $globals['main_published_rss']) {
 		echo '	<atom:link rel="hub" href="'.$globals['pubsub'].'"/>'."\n";
@@ -330,7 +330,7 @@ function do_footer() {
 function check_redirect_to_feedburner($status) {
 	global $globals;
 
-	$regex = '/'.$globals['rss_redirect_user_agent'].'|pubsub|mediatize|burner/i';
+	$regex = '/'.$globals['rss_redirect_user_agent'].'|pubsub|factocheck|burner/i';
 
 	if (SitesMgr::my_id() > 1 || isset($_REQUEST['local']) || isset($_REQUEST['nohtml']) || $globals['bot'] || !$globals['rss_redirect_user_agent'] || preg_match($regex, htmlspecialchars($_SERVER['PHP_SELF'])) || preg_match($regex, $_SERVER['HTTP_USER_AGENT']) ) return;
 	/*|| preg_match('/technoratibot/i', $_SERVER['HTTP_USER_AGENT']) */

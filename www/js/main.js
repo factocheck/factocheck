@@ -13,7 +13,7 @@ var base_url="{{ globals.base_url_general }}",
 		do_partial=false;
 	{% endif %}
 
-if (typeof window.history == "object" && (do_partial || navigator.userAgent.match(/mediatize/i)) ) {
+if (typeof window.history == "object" && (do_partial || navigator.userAgent.match(/factocheck/i)) ) {
 	do_partial = true;
 }
 

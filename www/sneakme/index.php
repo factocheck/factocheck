@@ -45,7 +45,7 @@ $limit = $rows = 0;
 switch ($argv[0]) {
 	case '_best':
 		$tab_option = 2;
-		$page_title = _('mejores postits') . ' | ' . _('mediatize');
+		$page_title = _('mejores postits') . ' | ' . _('factocheck');
 		$min_date = date("Y-m-d H:00:00", time() - 86400); //  about 24 hours
 		$where = "post_date > '$min_date'";
 		$order_by = "ORDER BY post_karma desc";

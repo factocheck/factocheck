@@ -157,7 +157,7 @@ function do_header($title) {
 	//echo "	<image><title>".$title."</title><link>https://".get_server_name().post_get_base_url()."</link><url>https://".get_static_server_name().$globals['base_url']."img/common/eli-rss.png</url></image>\n";
 	echo '	<description>'._('Agregador social colaborativo de publicación y comunicación').'</description>'."\n";
 	echo '	<pubDate>'.date("r", $last_modified).'</pubDate>'."\n";
-	echo '	<generator>https://blog.mediatize.info/</generator>'."\n";
+	echo '	<generator>https://blog.factocheck.com/</generator>'."\n";
 	echo '	<language>'.$dblang.'</language>'."\n";
 }
 

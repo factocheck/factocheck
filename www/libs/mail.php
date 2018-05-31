@@ -46,14 +46,14 @@ function send_recover_mail ($user) {
 
 	$url_recover = 'https://'.get_server_name().$globals['base_url'].'login?op=recover';
 
-	$message  = '<html lang="es"><head><meta charset="utf-8"/></head><body><p>Hola '.$to.":</p>\n\n";
-	$message .= "<p>Para poder acceder sin la clave, conéctate a la siguiente dirección en menos de 15 minutos:<br>\n";
+	$message  = '<html lang="es"><head><meta charset="utf-8"/></head><body><p>'._('Hola ').$to.":</p>\n\n";
+	$message .= "<p>".('Para poder acceder sin la clave, conéctate a la siguiente dirección en menos de 15 minutos').":<br>\n";
 	$message .= '<a href="'.$url.'">'.$url."</a></p>\n\n";
-	$message .= "<p>Pasado este tiempo puedes volver a solicitar acceso en:<br>\n";
+	$message .= "<p>"._('Pasado este tiempo puedes volver a solicitar acceso en').":<br>\n";
 	$message .= '<a href="'.$url_recover.'">'.$url_recover."</a></p>\n\n";
-	$message .= "<p>Una vez en tu perfil, puedes cambiar la clave de acceso.</p>\n";
-	$message .= '<p>Este mensaje ha sido enviado bajo solicitud desde la dirección IP: '.$globals['user_ip']."<p>\n\n";
-	$message .= "<p>--\n <br>el equipo de mediatize<p><br></body></html>";
+	$message .= "<p>"._('Una vez en tu perfil, puedes cambiar la clave de acceso').".</p>\n";
+	$message .= "<p>"._('Este mensaje ha sido enviado bajo solicitud desde la dirección IP').": ".$globals['user_ip']."<p>\n\n";
+	$message .= "<p>--\n <br>"._('el equipo de factocheck')."<p><br></body></html>";
 	
 	if(send_pear_mail($to, $domain, $subject, $message)) {
 		//echo '<p><strong>' ._('Correo enviado, mira tu buzón, allí están las instrucciones. Mira también en la carpeta de spam.') . '</strong></p>';
@@ -73,7 +73,7 @@ function send_pear_mail($to, $domain, $subject, $message) {
 		return false;
 	}
 
-	$from_user = "Avisos: $domain";
+	$from_user = _('Avisos').": $domain";
 	$from_email = "no-responder@$domain";
 	$reply_to = $from_email;
 	$mailer = $domain;

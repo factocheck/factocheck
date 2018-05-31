@@ -54,7 +54,7 @@ Permite enviar noticias que serán revisadas por sus usuarios y votadas como ver
 </li>
 
 <li>
-<h2><a name="we"></a>¿Quién está detrás del mediatize?</h2>
+<h2><a name="we"></a>¿Quién está detrás del factocheck?</h2>
 <p>Es un proyecto para crear una web con noticias que valide su autenticidad y ayude al mundo a descubrir la falsedad de la información, tan habitual en nuestros días.
 Encontrarás los datos de <strong>contacto</strong> en <a target="_blank" href="legal#contact">la página de las condiciones legales</a>.
 </p>
@@ -62,7 +62,7 @@ Encontrarás los datos de <strong>contacto</strong> en <a target="_blank" href="
 
 <li>
 <h2>¿Qué software se usa?</h2>
-<p>El software comenzó a desarrollarlo Ricardo Galli y Benjamí Villoslada con colaboraciones de terceros, más las modificaciones hechas por Fermín Molina para otro agregador llamado <a href="https://www.mediatize.info" target="_blank">mediatize</a>, y que a su vez fue modificado para hacer "factocheck".</p>
+<p>El software comenzó a desarrollarlo Ricardo Galli y Benjamí Villoslada con colaboraciones de terceros, más las modificaciones hechas por Fermín Molina para otro agregador llamado <a href="https://www.factocheck.com" target="_blank">mfactocheck</a>, y que a su vez fue modificado para hacer "factocheck".</p>
 </li>
 
 <li>

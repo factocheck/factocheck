@@ -24,7 +24,7 @@ if (PHP_SAPI != 'cli' && !empty($globals['force_ssl']) && ! $globals['https'] &&
 $globals['extra_js'] = Array();
 $globals['extra_css'] = Array();
 
-if (! $globals['bot'] && ($globals['allow_partial'] || preg_match('/mediatize/i', $_SERVER['HTTP_USER_AGENT']))) {
+if (! $globals['bot'] && ($globals['allow_partial'] || preg_match('/factocheck/i', $_SERVER['HTTP_USER_AGENT']))) {
 	if (! $globals['mobile']) $globals['ads'] = false;
 	if (isset($_REQUEST['partial'])) {
 		$globals['partial'] = true;

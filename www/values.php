@@ -21,7 +21,7 @@ function print_time($secs) {
 	else return $secs . ' ' . _("segundos");
 }
 
-do_header(_('Información sobre valores de karma y límites') . ' | ' . _('mediatize'), '', false, false, '', false, false);
+do_header(_('Información sobre valores de karma y límites') . ' | ' . _('factocheck'), '', false, false, '', false, false);
 
 echo '<div id="singlewrap" class="col-sm-10">';
 echo '<div class="topheading th-no-margin"><h2>Información sobre valores de karma, límites y otros parámetros</h2></div>';
